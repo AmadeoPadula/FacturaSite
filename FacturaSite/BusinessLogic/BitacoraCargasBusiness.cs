@@ -124,6 +124,38 @@ namespace FacturaSite.BusinessLogic
             } //finally
         }
 
+
+        /// <summary>
+        /// Cargar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Febrero 13 de 2015 </para>
+        /// <para> Fecha de última modificación: Febrero 13 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public BitacoraCargas Cargar(Int32 bitacoraId)
+        {
+            AdsertiSqlDataAccess adsertiDataAccess;
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+            try
+            {
+                adsertiDataAccess.AbrirConexion();
+
+                BitacoraCargasClass bitacoraCargaDataAccess = new BitacoraCargasClass();
+                return bitacoraCargaDataAccess.Cargar(bitacoraId, adsertiDataAccess);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        }
+
+
         #endregion
 
     }

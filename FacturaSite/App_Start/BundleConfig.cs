@@ -18,7 +18,8 @@ namespace FacturaSite
             #region JS / SCRIPT
 
             bundles.Add(new ScriptBundle("~/bundles/jQuery").Include(
-                "~/Scripts/jquery-2.1.3.js"
+                "~/Scripts/jquery-{version}.js"
+                ,"~/Scripts/jquery-ui-{version}.js"
                 //, "~/Scripts/jquery-2.1.3.intellisense.js"
                 , "~/Scripts/bootstrap.js"
                 ));
@@ -26,10 +27,15 @@ namespace FacturaSite
             bundles.Add(new ScriptBundle("~/bundles/dropzonescripts").Include(
                      "~/Scripts/dropzone/dropzone.js"));
 
-
             #endregion
 
             #region CSS / STYLE
+
+            bundles.Add(new StyleBundle("~/bundles/jQueryUICss").Include(
+                "~/Content/themes/base/core.css"
+                , "~/Content/themes/base/datepicker.css"
+                , "~/Content/themes/base/theme.css"
+                ));
 
             bundles.Add(new StyleBundle("~/bundles/BootstrapCss").Include(
                    "~/Content/bootstrap.css"

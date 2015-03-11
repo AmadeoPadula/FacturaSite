@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaSite.BusinessLogic;
+using FacturaSite.Models;
 
 namespace FacturaSite.Evidencias
 {
@@ -15,8 +16,57 @@ namespace FacturaSite.Evidencias
             if (!Page.IsPostBack)
             {
                 CargarEvidenciaSinClasificar();
+                CargarBancos();
+                CargarEmpresas();
+                CargarTiposTransacciones();
             }
         }
+
+        protected void CargarBancos()
+        {
+            ListItem vacioListItem;
+
+            BancoDropDownList.DataSource = EvidenciasBusiness.CargarBancos();
+            BancoDropDownList.DataTextField = "Banco";
+            BancoDropDownList.DataValueField = "BancoId";
+            BancoDropDownList.DataBind();
+
+            vacioListItem = new ListItem("- Seleccione una opción -", string.Empty);
+
+            // Agrega el listitem de selección al dropdownlist en la primera posición
+            BancoDropDownList.Items.Insert(0, vacioListItem);
+        }
+
+        protected void CargarEmpresas()
+        {
+            ListItem vacioListItem;
+
+            EmpresaDropDownList.DataSource = EvidenciasBusiness.CargarEmpresas();
+            EmpresaDropDownList.DataTextField = "Empresa";
+            EmpresaDropDownList.DataValueField = "EmpresaId";
+            EmpresaDropDownList.DataBind();
+
+            vacioListItem = new ListItem("- Seleccione una opción -", string.Empty);
+
+            // Agrega el listitem de selección al dropdownlist en la primera posición
+            EmpresaDropDownList.Items.Insert(0, vacioListItem);
+        }
+
+        protected void CargarTiposTransacciones()
+        {
+            ListItem vacioListItem;
+
+            TipoTransaccionDropDownList.DataSource = EvidenciasBusiness.CargarTiposTransacciones();
+            TipoTransaccionDropDownList.DataTextField = "TipoTransaccion";
+            TipoTransaccionDropDownList.DataValueField = "TipoTransaccionId";
+            TipoTransaccionDropDownList.DataBind();
+
+            vacioListItem = new ListItem("- Seleccione una opción -", string.Empty);
+
+            // Agrega el listitem de selección al dropdownlist en la primera posición
+            TipoTransaccionDropDownList.Items.Insert(0, vacioListItem);
+        }
+
 
         protected void CargarEvidenciaSinClasificar()
         {
@@ -43,7 +93,7 @@ namespace FacturaSite.Evidencias
                 case "select":
                     LimpiarVentanaModal();
                     TraerInfoBitacora(Convert.ToInt32(e.CommandArgument));
-                    MostrarVentanaModal(true);
+                    MostarVentanaModal(true);
                     break;
             }
         }
@@ -64,7 +114,12 @@ namespace FacturaSite.Evidencias
 
         protected void TraerInfoBitacora(Int32 bitacoraId)
         {
-            
+            BitacoraCargasBusiness bitacoraBusiness = new BitacoraCargasBusiness();
+            BitacoraCargas bitacoraCarga = bitacoraBusiness.Cargar(bitacoraId);
+            LimpiarVentanaModal();
+
+
+
         }
 
         protected void GuardarEvidencia()

@@ -73,7 +73,7 @@
                                                         <label class="col-sm-2 control-label">Empresa:</label>
                                                     </td>
                                                     <td>
-                                                        <asp:DropDownList ID="EmpresaDropDownList" runat="server" class="form-control" Style="max-width: 50px;" Enabled="False"></asp:DropDownList>
+                                                        <asp:DropDownList ID="EmpresaDropDownList" runat="server" class="form-control"></asp:DropDownList>
                                                     </td>
                                                     <td></td>
                                                 </tr>
@@ -177,7 +177,6 @@
         $(document).ready(function () {
             
         });
-
 
         function LimpiarCampos() {
             $("[id$=EmpresaDropDownList]").val('');

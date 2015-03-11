@@ -57,7 +57,7 @@ namespace FacturaSite.DataAccess
                 sentenciaSql = "SELECT ";
                 sentenciaSql += "	EmpresaId, ";
                 sentenciaSql += "	Identificador, ";
-                sentenciaSql += "	Empresas, ";
+                sentenciaSql += "	Empresa, ";
                 sentenciaSql += "    FORMAT([FechaAlta],'" + AdsertiValidaciones.FormatoFechaHora + "') AS FechaAlta, ";
                 sentenciaSql += "	UsuarioAltaId, ";
                 sentenciaSql += "    FORMAT([FechaCambio],'" + AdsertiValidaciones.FormatoFechaHora + "') AS FechaCambio, ";
@@ -78,7 +78,7 @@ namespace FacturaSite.DataAccess
 
                         empresa.EmpresaId = Convert.ToInt32(empresaRow["EmpresaId"]);
                         empresa.Identificador = empresaRow["Identificador"].ToString();
-                        empresa.Empresa = empresaRow["Empresas"].ToString();
+                        empresa.Empresa = empresaRow["Empresa"].ToString();
 
                         empresa.FechaAlta = Convert.ToDateTime((empresaRow["FechaAlta"]));
                         empresa.UsuarioAltaId = Convert.ToInt32((empresaRow["UsuarioAltaId"]));
