@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlFacturas", "ControlFacturas\ControlFacturas.csproj", "{893AB826-696C-4561-AF83-8F9F907919D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelosEF", "ModelosEF\ModelosEF.csproj", "{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaSite", "FacturaSite\FacturaSite.csproj", "{DBD3044C-D62C-4A3C-8607-E3629B355C5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{893AB826-696C-4561-AF83-8F9F907919D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{893AB826-696C-4561-AF83-8F9F907919D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{893AB826-696C-4561-AF83-8F9F907919D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{893AB826-696C-4561-AF83-8F9F907919D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD3044C-D62C-4A3C-8607-E3629B355C5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD3044C-D62C-4A3C-8607-E3629B355C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD3044C-D62C-4A3C-8607-E3629B355C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD3044C-D62C-4A3C-8607-E3629B355C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

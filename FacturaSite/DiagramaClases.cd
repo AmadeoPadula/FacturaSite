@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="FacturaSite.DataAccess.BitacoraCargasClass" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\BitacoraCargasClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.ComprobantesClass" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAAAAAAIAAIAAAAEAAA=</HashCode>
+      <FileName>DataAccess\ComprobantesClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.ComprobantesImpuestosClass" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\ComprobantesImpuestosClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.ConceptosClass">
+    <Position X="6.25" Y="3" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\ConceptosClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.DomiciliosClass" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\DomiciliosClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.EmisoresClass" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\EmisoresClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.EmisoresRegimenesFiscalesClass" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\EmisoresRegimenesFiscalesClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.PersonasClass">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\PersonasClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.ReceptoresClass" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\ReceptoresClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.RegimenesFiscalesClass" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\RegimenesFiscalesClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacturaSite.DataAccess.TimbresFiscalesDigitalesClass">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\TimbresFiscalesDigitalesClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

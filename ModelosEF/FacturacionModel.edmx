@@ -1,0 +1,1483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FacturacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bancos">
+          <Key>
+            <PropertyRef Name="BancoId" />
+          </Key>
+          <Property Name="BancoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificador" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Banco" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="BitacoraCargas">
+          <Key>
+            <PropertyRef Name="BitacoraCargaId" />
+          </Key>
+          <Property Name="BitacoraCargaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreArchivo" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Extension" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Comprobantes">
+          <Key>
+            <PropertyRef Name="ComprobanteId" />
+          </Key>
+          <Property Name="ComprobanteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmisorId" Type="int" Nullable="false" />
+          <Property Name="ReceptorId" Type="int" Nullable="false" />
+          <Property Name="TotalImpuestosRetenidos" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="TotalImpuestosTrasladados" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="Certificado" Type="nvarchar(max)" />
+          <Property Name="CondicionesPago" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Descuento" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="FechaFolioFiscalOrig" Type="datetime" />
+          <Property Name="Folio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FolioFiscalOrig" Type="nvarchar" MaxLength="100" />
+          <Property Name="FormaPago" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="LugarExpedicion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MetodoPago" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Moneda" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MontoFolioFiscalOrig" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="MotivoDescuento" Type="nvarchar" MaxLength="150" />
+          <Property Name="NoCertificado" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="NumCtaPago" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Sello" Type="nvarchar(max)" />
+          <Property Name="Serie" Type="nvarchar" MaxLength="255" />
+          <Property Name="SerieFolioFiscalOrig" Type="nvarchar" MaxLength="255" />
+          <Property Name="SubTotal" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="TipoCambio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TipoComprobante" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Total" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="BitacoraCargaIdXML" Type="int" Nullable="false" />
+          <Property Name="BitacoraCargaIdPDF" Type="int" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="ComprobantesImpuestos">
+          <Key>
+            <PropertyRef Name="ComprobanteImpuestoId" />
+          </Key>
+          <Property Name="ComprobanteImpuestoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComprobanteId" Type="int" Nullable="false" />
+          <Property Name="TipoImpuestoId" Type="int" Nullable="false" />
+          <Property Name="Importe" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Impuesto" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tasa" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Conceptos">
+          <Key>
+            <PropertyRef Name="ConceptoId" />
+          </Key>
+          <Property Name="ConceptoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComprobanteId" Type="int" Nullable="false" />
+          <Property Name="NoIdentificacion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cantidad" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Unidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorUnitario" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Importe" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Domicilios">
+          <Key>
+            <PropertyRef Name="DomicilioId" />
+          </Key>
+          <Property Name="DomicilioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="nvarchar" MaxLength="100" />
+          <Property Name="CodigoPostal" Type="nvarchar" MaxLength="5" />
+          <Property Name="Colonia" Type="nvarchar" MaxLength="100" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Municipio" Type="nvarchar" MaxLength="80" />
+          <Property Name="NoExterior" Type="nvarchar" MaxLength="20" />
+          <Property Name="NoInterior" Type="nvarchar" MaxLength="20" />
+          <Property Name="Pais" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Referencia" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Emisores">
+          <Key>
+            <PropertyRef Name="EmisorId" />
+          </Key>
+          <Property Name="EmisorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="DomicilioFiscalId" Type="int" Nullable="false" />
+          <Property Name="DomicilioExpedicionId" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="EmisoresRegimenesFiscales">
+          <Key>
+            <PropertyRef Name="EmisorId" />
+            <PropertyRef Name="RegimenFiscalId" />
+          </Key>
+          <Property Name="EmisorId" Type="int" Nullable="false" />
+          <Property Name="RegimenFiscalId" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="EmpresaId" />
+          </Key>
+          <Property Name="EmpresaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificador" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Empresa" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Evidencias">
+          <Key>
+            <PropertyRef Name="EvidenciaId" />
+          </Key>
+          <Property Name="EvidenciaId" Type="int" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" Nullable="false" />
+          <Property Name="BancoId" Type="int" />
+          <Property Name="TipoTransaccionId" Type="int" Nullable="false" />
+          <Property Name="NumeroTransferencia" Type="nvarchar" MaxLength="5" />
+          <Property Name="FechaPago" Type="datetime" Nullable="false" />
+          <Property Name="MontoPago" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="NoFacturaPagada" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ClaveEvidencia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BitacoraCargaId" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rfc" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="Receptores">
+          <Key>
+            <PropertyRef Name="ReceptorId" />
+          </Key>
+          <Property Name="ReceptorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="DomicilioId" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="RegimenesFiscales">
+          <Key>
+            <PropertyRef Name="RegimenFiscalId" />
+          </Key>
+          <Property Name="RegimenFiscalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegimenFiscal" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="TimbresFiscalesDigitales">
+          <Key>
+            <PropertyRef Name="TimbreFiscalDigitalId" />
+          </Key>
+          <Property Name="TimbreFiscalDigitalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComprobanteId" Type="int" Nullable="false" />
+          <Property Name="FechaTimbrado" Type="datetime" Nullable="false" />
+          <Property Name="NoCertificadoSAT" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SelloCFD" Type="nvarchar(max)" />
+          <Property Name="SelloSAT" Type="nvarchar(max)" />
+          <Property Name="UUID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="TiposImpuesto">
+          <Key>
+            <PropertyRef Name="TipoImpuestoId" />
+          </Key>
+          <Property Name="TipoImpuestoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoImpuesto" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <EntityType Name="TiposTransacciones">
+          <Key>
+            <PropertyRef Name="TipoTransaccionId" />
+          </Key>
+          <Property Name="TipoTransaccionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificador" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="TipoTransaccion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAltaId" Type="int" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="UsuarioCambioId" Type="int" />
+        </EntityType>
+        <Association Name="BancosEvidenciasFK">
+          <End Role="Bancos" Type="Self.Bancos" Multiplicity="0..1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bancos">
+              <PropertyRef Name="BancoId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasComprobantesPDFFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="0..1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="BitacoraCargaIdPDF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasComprobantesXMLFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="BitacoraCargaIdXML" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasEvidenciasFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesComprobantesImpuestosFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="ComprobantesImpuestos" Type="Self.ComprobantesImpuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="ComprobantesImpuestos">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesConceptosFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="Conceptos" Type="Self.Conceptos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="Conceptos">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesTimbresFiscalesDigitalesFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="TimbresFiscalesDigitales" Type="Self.TimbresFiscalesDigitales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="TimbresFiscalesDigitales">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosEmisoresExpedicionFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="DomicilioExpedicionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosEmisoresFiscalFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="DomicilioFiscalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosReceptoresFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Receptores">
+              <PropertyRef Name="DomicilioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmisoresComprobantesFK">
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emisores">
+              <PropertyRef Name="EmisorId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="EmisorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmisoresEmisoresRegimenesFiscalesFK">
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="1" />
+          <End Role="EmisoresRegimenesFiscales" Type="Self.EmisoresRegimenesFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emisores">
+              <PropertyRef Name="EmisorId" />
+            </Principal>
+            <Dependent Role="EmisoresRegimenesFiscales">
+              <PropertyRef Name="EmisorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmpresasEvidenciasFK">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonasEmisoresFK">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonasReceptoresFK">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Receptores">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReceptoresComprobantesFK">
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receptores">
+              <PropertyRef Name="ReceptorId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="ReceptorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RegimenesFiscalesEmisoresRegimenesFiscalesFK">
+          <End Role="RegimenesFiscales" Type="Self.RegimenesFiscales" Multiplicity="1" />
+          <End Role="EmisoresRegimenesFiscales" Type="Self.EmisoresRegimenesFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegimenesFiscales">
+              <PropertyRef Name="RegimenFiscalId" />
+            </Principal>
+            <Dependent Role="EmisoresRegimenesFiscales">
+              <PropertyRef Name="RegimenFiscalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiposImpuestoComprobantesImpuestosFK">
+          <End Role="TiposImpuesto" Type="Self.TiposImpuesto" Multiplicity="1" />
+          <End Role="ComprobantesImpuestos" Type="Self.ComprobantesImpuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposImpuesto">
+              <PropertyRef Name="TipoImpuestoId" />
+            </Principal>
+            <Dependent Role="ComprobantesImpuestos">
+              <PropertyRef Name="TipoImpuestoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiposTransaccionesEvidenciasFK">
+          <End Role="TiposTransacciones" Type="Self.TiposTransacciones" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTransacciones">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FacturacionModelStoreContainer">
+          <EntitySet Name="Bancos" EntityType="Self.Bancos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraCargas" EntityType="Self.BitacoraCargas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comprobantes" EntityType="Self.Comprobantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComprobantesImpuestos" EntityType="Self.ComprobantesImpuestos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conceptos" EntityType="Self.Conceptos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Domicilios" EntityType="Self.Domicilios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emisores" EntityType="Self.Emisores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmisoresRegimenesFiscales" EntityType="Self.EmisoresRegimenesFiscales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evidencias" EntityType="Self.Evidencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receptores" EntityType="Self.Receptores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegimenesFiscales" EntityType="Self.RegimenesFiscales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimbresFiscalesDigitales" EntityType="Self.TimbresFiscalesDigitales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposImpuesto" EntityType="Self.TiposImpuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposTransacciones" EntityType="Self.TiposTransacciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="BancosEvidenciasFK" Association="Self.BancosEvidenciasFK">
+            <End Role="Bancos" EntitySet="Bancos" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasComprobantesPDFFK" Association="Self.BitacoraCargasComprobantesPDFFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasComprobantesXMLFK" Association="Self.BitacoraCargasComprobantesXMLFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasEvidenciasFK" Association="Self.BitacoraCargasEvidenciasFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesComprobantesImpuestosFK" Association="Self.ComprobantesComprobantesImpuestosFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="ComprobantesImpuestos" EntitySet="ComprobantesImpuestos" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesConceptosFK" Association="Self.ComprobantesConceptosFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="Conceptos" EntitySet="Conceptos" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesTimbresFiscalesDigitalesFK" Association="Self.ComprobantesTimbresFiscalesDigitalesFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="TimbresFiscalesDigitales" EntitySet="TimbresFiscalesDigitales" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosEmisoresExpedicionFK" Association="Self.DomiciliosEmisoresExpedicionFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosEmisoresFiscalFK" Association="Self.DomiciliosEmisoresFiscalFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosReceptoresFK" Association="Self.DomiciliosReceptoresFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Receptores" EntitySet="Receptores" />
+          </AssociationSet>
+          <AssociationSet Name="EmisoresComprobantesFK" Association="Self.EmisoresComprobantesFK">
+            <End Role="Emisores" EntitySet="Emisores" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="EmisoresEmisoresRegimenesFiscalesFK" Association="Self.EmisoresEmisoresRegimenesFiscalesFK">
+            <End Role="Emisores" EntitySet="Emisores" />
+            <End Role="EmisoresRegimenesFiscales" EntitySet="EmisoresRegimenesFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="EmpresasEvidenciasFK" Association="Self.EmpresasEvidenciasFK">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="PersonasEmisoresFK" Association="Self.PersonasEmisoresFK">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="PersonasReceptoresFK" Association="Self.PersonasReceptoresFK">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Receptores" EntitySet="Receptores" />
+          </AssociationSet>
+          <AssociationSet Name="ReceptoresComprobantesFK" Association="Self.ReceptoresComprobantesFK">
+            <End Role="Receptores" EntitySet="Receptores" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="RegimenesFiscalesEmisoresRegimenesFiscalesFK" Association="Self.RegimenesFiscalesEmisoresRegimenesFiscalesFK">
+            <End Role="RegimenesFiscales" EntitySet="RegimenesFiscales" />
+            <End Role="EmisoresRegimenesFiscales" EntitySet="EmisoresRegimenesFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="TiposImpuestoComprobantesImpuestosFK" Association="Self.TiposImpuestoComprobantesImpuestosFK">
+            <End Role="TiposImpuesto" EntitySet="TiposImpuesto" />
+            <End Role="ComprobantesImpuestos" EntitySet="ComprobantesImpuestos" />
+          </AssociationSet>
+          <AssociationSet Name="TiposTransaccionesEvidenciasFK" Association="Self.TiposTransaccionesEvidenciasFK">
+            <End Role="TiposTransacciones" EntitySet="TiposTransacciones" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FacturacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bancos">
+          <Key>
+            <PropertyRef Name="BancoId" />
+          </Key>
+          <Property Name="BancoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Banco" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Evidencias" Relationship="Self.BancosEvidenciasFK" FromRole="Bancos" ToRole="Evidencias" />
+        </EntityType>
+        <EntityType Name="BitacoraCargas">
+          <Key>
+            <PropertyRef Name="BitacoraCargaId" />
+          </Key>
+          <Property Name="BitacoraCargaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreArchivo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Extension" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.BitacoraCargasComprobantesPDFFK" FromRole="BitacoraCargas" ToRole="Comprobantes" />
+          <NavigationProperty Name="Comprobantes1" Relationship="Self.BitacoraCargasComprobantesXMLFK" FromRole="BitacoraCargas" ToRole="Comprobantes" />
+          <NavigationProperty Name="Evidencias" Relationship="Self.BitacoraCargasEvidenciasFK" FromRole="BitacoraCargas" ToRole="Evidencias" />
+        </EntityType>
+        <EntityType Name="Comprobantes">
+          <Key>
+            <PropertyRef Name="ComprobanteId" />
+          </Key>
+          <Property Name="ComprobanteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmisorId" Type="Int32" Nullable="false" />
+          <Property Name="ReceptorId" Type="Int32" Nullable="false" />
+          <Property Name="TotalImpuestosRetenidos" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="TotalImpuestosTrasladados" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="Certificado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CondicionesPago" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descuento" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="FechaFolioFiscalOrig" Type="DateTime" Precision="3" />
+          <Property Name="Folio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FolioFiscalOrig" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FormaPago" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LugarExpedicion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MetodoPago" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Moneda" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MontoFolioFiscalOrig" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="MotivoDescuento" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NoCertificado" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumCtaPago" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sello" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Serie" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SerieFolioFiscalOrig" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="TipoCambio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipoComprobante" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BitacoraCargaIdXML" Type="Int32" Nullable="false" />
+          <Property Name="BitacoraCargaIdPDF" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="BitacoraCargas" Relationship="Self.BitacoraCargasComprobantesPDFFK" FromRole="Comprobantes" ToRole="BitacoraCargas" />
+          <NavigationProperty Name="BitacoraCargas1" Relationship="Self.BitacoraCargasComprobantesXMLFK" FromRole="Comprobantes" ToRole="BitacoraCargas" />
+          <NavigationProperty Name="ComprobantesImpuestos" Relationship="Self.ComprobantesComprobantesImpuestosFK" FromRole="Comprobantes" ToRole="ComprobantesImpuestos" />
+          <NavigationProperty Name="Conceptos" Relationship="Self.ComprobantesConceptosFK" FromRole="Comprobantes" ToRole="Conceptos" />
+          <NavigationProperty Name="TimbresFiscalesDigitales" Relationship="Self.ComprobantesTimbresFiscalesDigitalesFK" FromRole="Comprobantes" ToRole="TimbresFiscalesDigitales" />
+          <NavigationProperty Name="Emisores" Relationship="Self.EmisoresComprobantesFK" FromRole="Comprobantes" ToRole="Emisores" />
+          <NavigationProperty Name="Receptores" Relationship="Self.ReceptoresComprobantesFK" FromRole="Comprobantes" ToRole="Receptores" />
+        </EntityType>
+        <EntityType Name="ComprobantesImpuestos">
+          <Key>
+            <PropertyRef Name="ComprobanteImpuestoId" />
+          </Key>
+          <Property Name="ComprobanteImpuestoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComprobanteId" Type="Int32" Nullable="false" />
+          <Property Name="TipoImpuestoId" Type="Int32" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Impuesto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tasa" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.ComprobantesComprobantesImpuestosFK" FromRole="ComprobantesImpuestos" ToRole="Comprobantes" />
+          <NavigationProperty Name="TiposImpuesto" Relationship="Self.TiposImpuestoComprobantesImpuestosFK" FromRole="ComprobantesImpuestos" ToRole="TiposImpuesto" />
+        </EntityType>
+        <EntityType Name="Conceptos">
+          <Key>
+            <PropertyRef Name="ConceptoId" />
+          </Key>
+          <Property Name="ConceptoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComprobanteId" Type="Int32" Nullable="false" />
+          <Property Name="NoIdentificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cantidad" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValorUnitario" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.ComprobantesConceptosFK" FromRole="Conceptos" ToRole="Comprobantes" />
+        </EntityType>
+        <EntityType Name="Domicilios">
+          <Key>
+            <PropertyRef Name="DomicilioId" />
+          </Key>
+          <Property Name="DomicilioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Colonia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Municipio" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="NoExterior" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoInterior" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Pais" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Referencia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Emisores" Relationship="Self.DomiciliosEmisoresExpedicionFK" FromRole="Domicilios" ToRole="Emisores" />
+          <NavigationProperty Name="Emisores1" Relationship="Self.DomiciliosEmisoresFiscalFK" FromRole="Domicilios" ToRole="Emisores" />
+          <NavigationProperty Name="Receptores" Relationship="Self.DomiciliosReceptoresFK" FromRole="Domicilios" ToRole="Receptores" />
+        </EntityType>
+        <EntityType Name="Emisores">
+          <Key>
+            <PropertyRef Name="EmisorId" />
+          </Key>
+          <Property Name="EmisorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="DomicilioFiscalId" Type="Int32" Nullable="false" />
+          <Property Name="DomicilioExpedicionId" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.EmisoresComprobantesFK" FromRole="Emisores" ToRole="Comprobantes" />
+          <NavigationProperty Name="Domicilios" Relationship="Self.DomiciliosEmisoresExpedicionFK" FromRole="Emisores" ToRole="Domicilios" />
+          <NavigationProperty Name="Domicilios1" Relationship="Self.DomiciliosEmisoresFiscalFK" FromRole="Emisores" ToRole="Domicilios" />
+          <NavigationProperty Name="EmisoresRegimenesFiscales" Relationship="Self.EmisoresEmisoresRegimenesFiscalesFK" FromRole="Emisores" ToRole="EmisoresRegimenesFiscales" />
+          <NavigationProperty Name="Personas" Relationship="Self.PersonasEmisoresFK" FromRole="Emisores" ToRole="Personas" />
+        </EntityType>
+        <EntityType Name="EmisoresRegimenesFiscales">
+          <Key>
+            <PropertyRef Name="EmisorId" />
+            <PropertyRef Name="RegimenFiscalId" />
+          </Key>
+          <Property Name="EmisorId" Type="Int32" Nullable="false" />
+          <Property Name="RegimenFiscalId" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Emisores" Relationship="Self.EmisoresEmisoresRegimenesFiscalesFK" FromRole="EmisoresRegimenesFiscales" ToRole="Emisores" />
+          <NavigationProperty Name="RegimenesFiscales" Relationship="Self.RegimenesFiscalesEmisoresRegimenesFiscalesFK" FromRole="EmisoresRegimenesFiscales" ToRole="RegimenesFiscales" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="EmpresaId" />
+          </Key>
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Evidencias" Relationship="Self.EmpresasEvidenciasFK" FromRole="Empresas" ToRole="Evidencias" />
+        </EntityType>
+        <EntityType Name="Evidencias">
+          <Key>
+            <PropertyRef Name="EvidenciaId" />
+          </Key>
+          <Property Name="EvidenciaId" Type="Int32" Nullable="false" />
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+          <Property Name="BancoId" Type="Int32" />
+          <Property Name="TipoTransaccionId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroTransferencia" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MontoPago" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="NoFacturaPagada" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaveEvidencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BitacoraCargaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Bancos" Relationship="Self.BancosEvidenciasFK" FromRole="Evidencias" ToRole="Bancos" />
+          <NavigationProperty Name="BitacoraCargas" Relationship="Self.BitacoraCargasEvidenciasFK" FromRole="Evidencias" ToRole="BitacoraCargas" />
+          <NavigationProperty Name="Empresas" Relationship="Self.EmpresasEvidenciasFK" FromRole="Evidencias" ToRole="Empresas" />
+          <NavigationProperty Name="TiposTransacciones" Relationship="Self.TiposTransaccionesEvidenciasFK" FromRole="Evidencias" ToRole="TiposTransacciones" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rfc" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Emisores" Relationship="Self.PersonasEmisoresFK" FromRole="Personas" ToRole="Emisores" />
+          <NavigationProperty Name="Receptores" Relationship="Self.PersonasReceptoresFK" FromRole="Personas" ToRole="Receptores" />
+        </EntityType>
+        <EntityType Name="Receptores">
+          <Key>
+            <PropertyRef Name="ReceptorId" />
+          </Key>
+          <Property Name="ReceptorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="DomicilioId" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.ReceptoresComprobantesFK" FromRole="Receptores" ToRole="Comprobantes" />
+          <NavigationProperty Name="Domicilios" Relationship="Self.DomiciliosReceptoresFK" FromRole="Receptores" ToRole="Domicilios" />
+          <NavigationProperty Name="Personas" Relationship="Self.PersonasReceptoresFK" FromRole="Receptores" ToRole="Personas" />
+        </EntityType>
+        <EntityType Name="RegimenesFiscales">
+          <Key>
+            <PropertyRef Name="RegimenFiscalId" />
+          </Key>
+          <Property Name="RegimenFiscalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegimenFiscal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="EmisoresRegimenesFiscales" Relationship="Self.RegimenesFiscalesEmisoresRegimenesFiscalesFK" FromRole="RegimenesFiscales" ToRole="EmisoresRegimenesFiscales" />
+        </EntityType>
+        <EntityType Name="TimbresFiscalesDigitales">
+          <Key>
+            <PropertyRef Name="TimbreFiscalDigitalId" />
+          </Key>
+          <Property Name="TimbreFiscalDigitalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComprobanteId" Type="Int32" Nullable="false" />
+          <Property Name="FechaTimbrado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NoCertificadoSAT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SelloCFD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SelloSAT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Comprobantes" Relationship="Self.ComprobantesTimbresFiscalesDigitalesFK" FromRole="TimbresFiscalesDigitales" ToRole="Comprobantes" />
+        </EntityType>
+        <EntityType Name="TiposImpuesto">
+          <Key>
+            <PropertyRef Name="TipoImpuestoId" />
+          </Key>
+          <Property Name="TipoImpuestoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoImpuesto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="ComprobantesImpuestos" Relationship="Self.TiposImpuestoComprobantesImpuestosFK" FromRole="TiposImpuesto" ToRole="ComprobantesImpuestos" />
+        </EntityType>
+        <EntityType Name="TiposTransacciones">
+          <Key>
+            <PropertyRef Name="TipoTransaccionId" />
+          </Key>
+          <Property Name="TipoTransaccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificador" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipoTransaccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAltaId" Type="Int32" Nullable="false" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioCambioId" Type="Int32" />
+          <NavigationProperty Name="Evidencias" Relationship="Self.TiposTransaccionesEvidenciasFK" FromRole="TiposTransacciones" ToRole="Evidencias" />
+        </EntityType>
+        <Association Name="BancosEvidenciasFK">
+          <End Role="Bancos" Type="Self.Bancos" Multiplicity="0..1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bancos">
+              <PropertyRef Name="BancoId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasComprobantesPDFFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="0..1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="BitacoraCargaIdPDF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasComprobantesXMLFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="BitacoraCargaIdXML" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BitacoraCargasEvidenciasFK">
+          <End Role="BitacoraCargas" Type="Self.BitacoraCargas" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BitacoraCargas">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="BitacoraCargaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesComprobantesImpuestosFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="ComprobantesImpuestos" Type="Self.ComprobantesImpuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="ComprobantesImpuestos">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesConceptosFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="Conceptos" Type="Self.Conceptos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="Conceptos">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComprobantesTimbresFiscalesDigitalesFK">
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="1" />
+          <End Role="TimbresFiscalesDigitales" Type="Self.TimbresFiscalesDigitales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comprobantes">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="TimbresFiscalesDigitales">
+              <PropertyRef Name="ComprobanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmisoresComprobantesFK">
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emisores">
+              <PropertyRef Name="EmisorId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="EmisorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReceptoresComprobantesFK">
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="1" />
+          <End Role="Comprobantes" Type="Self.Comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receptores">
+              <PropertyRef Name="ReceptorId" />
+            </Principal>
+            <Dependent Role="Comprobantes">
+              <PropertyRef Name="ReceptorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiposImpuestoComprobantesImpuestosFK">
+          <End Role="TiposImpuesto" Type="Self.TiposImpuesto" Multiplicity="1" />
+          <End Role="ComprobantesImpuestos" Type="Self.ComprobantesImpuestos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposImpuesto">
+              <PropertyRef Name="TipoImpuestoId" />
+            </Principal>
+            <Dependent Role="ComprobantesImpuestos">
+              <PropertyRef Name="TipoImpuestoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosEmisoresExpedicionFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="DomicilioExpedicionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosEmisoresFiscalFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="DomicilioFiscalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DomiciliosReceptoresFK">
+          <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilios">
+              <PropertyRef Name="DomicilioId" />
+            </Principal>
+            <Dependent Role="Receptores">
+              <PropertyRef Name="DomicilioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmisoresEmisoresRegimenesFiscalesFK">
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="1" />
+          <End Role="EmisoresRegimenesFiscales" Type="Self.EmisoresRegimenesFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emisores">
+              <PropertyRef Name="EmisorId" />
+            </Principal>
+            <Dependent Role="EmisoresRegimenesFiscales">
+              <PropertyRef Name="EmisorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonasEmisoresFK">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Emisores" Type="Self.Emisores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Emisores">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RegimenesFiscalesEmisoresRegimenesFiscalesFK">
+          <End Role="RegimenesFiscales" Type="Self.RegimenesFiscales" Multiplicity="1" />
+          <End Role="EmisoresRegimenesFiscales" Type="Self.EmisoresRegimenesFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegimenesFiscales">
+              <PropertyRef Name="RegimenFiscalId" />
+            </Principal>
+            <Dependent Role="EmisoresRegimenesFiscales">
+              <PropertyRef Name="RegimenFiscalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmpresasEvidenciasFK">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiposTransaccionesEvidenciasFK">
+          <End Role="TiposTransacciones" Type="Self.TiposTransacciones" Multiplicity="1" />
+          <End Role="Evidencias" Type="Self.Evidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTransacciones">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Principal>
+            <Dependent Role="Evidencias">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonasReceptoresFK">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Receptores" Type="Self.Receptores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Receptores">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FacturacionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bancos" EntityType="Self.Bancos" />
+          <EntitySet Name="BitacoraCargas" EntityType="Self.BitacoraCargas" />
+          <EntitySet Name="Comprobantes" EntityType="Self.Comprobantes" />
+          <EntitySet Name="ComprobantesImpuestos" EntityType="Self.ComprobantesImpuestos" />
+          <EntitySet Name="Conceptos" EntityType="Self.Conceptos" />
+          <EntitySet Name="Domicilios" EntityType="Self.Domicilios" />
+          <EntitySet Name="Emisores" EntityType="Self.Emisores" />
+          <EntitySet Name="EmisoresRegimenesFiscales" EntityType="Self.EmisoresRegimenesFiscales" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" />
+          <EntitySet Name="Evidencias" EntityType="Self.Evidencias" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" />
+          <EntitySet Name="Receptores" EntityType="Self.Receptores" />
+          <EntitySet Name="RegimenesFiscales" EntityType="Self.RegimenesFiscales" />
+          <EntitySet Name="TimbresFiscalesDigitales" EntityType="Self.TimbresFiscalesDigitales" />
+          <EntitySet Name="TiposImpuesto" EntityType="Self.TiposImpuesto" />
+          <EntitySet Name="TiposTransacciones" EntityType="Self.TiposTransacciones" />
+          <AssociationSet Name="BancosEvidenciasFK" Association="Self.BancosEvidenciasFK">
+            <End Role="Bancos" EntitySet="Bancos" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasComprobantesPDFFK" Association="Self.BitacoraCargasComprobantesPDFFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasComprobantesXMLFK" Association="Self.BitacoraCargasComprobantesXMLFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="BitacoraCargasEvidenciasFK" Association="Self.BitacoraCargasEvidenciasFK">
+            <End Role="BitacoraCargas" EntitySet="BitacoraCargas" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesComprobantesImpuestosFK" Association="Self.ComprobantesComprobantesImpuestosFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="ComprobantesImpuestos" EntitySet="ComprobantesImpuestos" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesConceptosFK" Association="Self.ComprobantesConceptosFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="Conceptos" EntitySet="Conceptos" />
+          </AssociationSet>
+          <AssociationSet Name="ComprobantesTimbresFiscalesDigitalesFK" Association="Self.ComprobantesTimbresFiscalesDigitalesFK">
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+            <End Role="TimbresFiscalesDigitales" EntitySet="TimbresFiscalesDigitales" />
+          </AssociationSet>
+          <AssociationSet Name="EmisoresComprobantesFK" Association="Self.EmisoresComprobantesFK">
+            <End Role="Emisores" EntitySet="Emisores" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="ReceptoresComprobantesFK" Association="Self.ReceptoresComprobantesFK">
+            <End Role="Receptores" EntitySet="Receptores" />
+            <End Role="Comprobantes" EntitySet="Comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="TiposImpuestoComprobantesImpuestosFK" Association="Self.TiposImpuestoComprobantesImpuestosFK">
+            <End Role="TiposImpuesto" EntitySet="TiposImpuesto" />
+            <End Role="ComprobantesImpuestos" EntitySet="ComprobantesImpuestos" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosEmisoresExpedicionFK" Association="Self.DomiciliosEmisoresExpedicionFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosEmisoresFiscalFK" Association="Self.DomiciliosEmisoresFiscalFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="DomiciliosReceptoresFK" Association="Self.DomiciliosReceptoresFK">
+            <End Role="Domicilios" EntitySet="Domicilios" />
+            <End Role="Receptores" EntitySet="Receptores" />
+          </AssociationSet>
+          <AssociationSet Name="EmisoresEmisoresRegimenesFiscalesFK" Association="Self.EmisoresEmisoresRegimenesFiscalesFK">
+            <End Role="Emisores" EntitySet="Emisores" />
+            <End Role="EmisoresRegimenesFiscales" EntitySet="EmisoresRegimenesFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="PersonasEmisoresFK" Association="Self.PersonasEmisoresFK">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Emisores" EntitySet="Emisores" />
+          </AssociationSet>
+          <AssociationSet Name="RegimenesFiscalesEmisoresRegimenesFiscalesFK" Association="Self.RegimenesFiscalesEmisoresRegimenesFiscalesFK">
+            <End Role="RegimenesFiscales" EntitySet="RegimenesFiscales" />
+            <End Role="EmisoresRegimenesFiscales" EntitySet="EmisoresRegimenesFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="EmpresasEvidenciasFK" Association="Self.EmpresasEvidenciasFK">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="TiposTransaccionesEvidenciasFK" Association="Self.TiposTransaccionesEvidenciasFK">
+            <End Role="TiposTransacciones" EntitySet="TiposTransacciones" />
+            <End Role="Evidencias" EntitySet="Evidencias" />
+          </AssociationSet>
+          <AssociationSet Name="PersonasReceptoresFK" Association="Self.PersonasReceptoresFK">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Receptores" EntitySet="Receptores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FacturacionModelStoreContainer" CdmEntityContainer="FacturacionEntities">
+          <EntitySetMapping Name="Bancos">
+            <EntityTypeMapping TypeName="FacturacionModel.Bancos">
+              <MappingFragment StoreEntitySet="Bancos">
+                <ScalarProperty Name="BancoId" ColumnName="BancoId" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="Banco" ColumnName="Banco" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraCargas">
+            <EntityTypeMapping TypeName="FacturacionModel.BitacoraCargas">
+              <MappingFragment StoreEntitySet="BitacoraCargas">
+                <ScalarProperty Name="BitacoraCargaId" ColumnName="BitacoraCargaId" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comprobantes">
+            <EntityTypeMapping TypeName="FacturacionModel.Comprobantes">
+              <MappingFragment StoreEntitySet="Comprobantes">
+                <ScalarProperty Name="ComprobanteId" ColumnName="ComprobanteId" />
+                <ScalarProperty Name="EmisorId" ColumnName="EmisorId" />
+                <ScalarProperty Name="ReceptorId" ColumnName="ReceptorId" />
+                <ScalarProperty Name="TotalImpuestosRetenidos" ColumnName="TotalImpuestosRetenidos" />
+                <ScalarProperty Name="TotalImpuestosTrasladados" ColumnName="TotalImpuestosTrasladados" />
+                <ScalarProperty Name="Certificado" ColumnName="Certificado" />
+                <ScalarProperty Name="CondicionesPago" ColumnName="CondicionesPago" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="FechaFolioFiscalOrig" ColumnName="FechaFolioFiscalOrig" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="FolioFiscalOrig" ColumnName="FolioFiscalOrig" />
+                <ScalarProperty Name="FormaPago" ColumnName="FormaPago" />
+                <ScalarProperty Name="LugarExpedicion" ColumnName="LugarExpedicion" />
+                <ScalarProperty Name="MetodoPago" ColumnName="MetodoPago" />
+                <ScalarProperty Name="Moneda" ColumnName="Moneda" />
+                <ScalarProperty Name="MontoFolioFiscalOrig" ColumnName="MontoFolioFiscalOrig" />
+                <ScalarProperty Name="MotivoDescuento" ColumnName="MotivoDescuento" />
+                <ScalarProperty Name="NoCertificado" ColumnName="NoCertificado" />
+                <ScalarProperty Name="NumCtaPago" ColumnName="NumCtaPago" />
+                <ScalarProperty Name="Sello" ColumnName="Sello" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="SerieFolioFiscalOrig" ColumnName="SerieFolioFiscalOrig" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TipoCambio" ColumnName="TipoCambio" />
+                <ScalarProperty Name="TipoComprobante" ColumnName="TipoComprobante" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="BitacoraCargaIdXML" ColumnName="BitacoraCargaIdXML" />
+                <ScalarProperty Name="BitacoraCargaIdPDF" ColumnName="BitacoraCargaIdPDF" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComprobantesImpuestos">
+            <EntityTypeMapping TypeName="FacturacionModel.ComprobantesImpuestos">
+              <MappingFragment StoreEntitySet="ComprobantesImpuestos">
+                <ScalarProperty Name="ComprobanteImpuestoId" ColumnName="ComprobanteImpuestoId" />
+                <ScalarProperty Name="ComprobanteId" ColumnName="ComprobanteId" />
+                <ScalarProperty Name="TipoImpuestoId" ColumnName="TipoImpuestoId" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="Tasa" ColumnName="Tasa" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conceptos">
+            <EntityTypeMapping TypeName="FacturacionModel.Conceptos">
+              <MappingFragment StoreEntitySet="Conceptos">
+                <ScalarProperty Name="ConceptoId" ColumnName="ConceptoId" />
+                <ScalarProperty Name="ComprobanteId" ColumnName="ComprobanteId" />
+                <ScalarProperty Name="NoIdentificacion" ColumnName="NoIdentificacion" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="ValorUnitario" ColumnName="ValorUnitario" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Domicilios">
+            <EntityTypeMapping TypeName="FacturacionModel.Domicilios">
+              <MappingFragment StoreEntitySet="Domicilios">
+                <ScalarProperty Name="DomicilioId" ColumnName="DomicilioId" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Municipio" ColumnName="Municipio" />
+                <ScalarProperty Name="NoExterior" ColumnName="NoExterior" />
+                <ScalarProperty Name="NoInterior" ColumnName="NoInterior" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emisores">
+            <EntityTypeMapping TypeName="FacturacionModel.Emisores">
+              <MappingFragment StoreEntitySet="Emisores">
+                <ScalarProperty Name="EmisorId" ColumnName="EmisorId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="DomicilioFiscalId" ColumnName="DomicilioFiscalId" />
+                <ScalarProperty Name="DomicilioExpedicionId" ColumnName="DomicilioExpedicionId" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmisoresRegimenesFiscales">
+            <EntityTypeMapping TypeName="FacturacionModel.EmisoresRegimenesFiscales">
+              <MappingFragment StoreEntitySet="EmisoresRegimenesFiscales">
+                <ScalarProperty Name="EmisorId" ColumnName="EmisorId" />
+                <ScalarProperty Name="RegimenFiscalId" ColumnName="RegimenFiscalId" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="FacturacionModel.Empresas">
+              <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evidencias">
+            <EntityTypeMapping TypeName="FacturacionModel.Evidencias">
+              <MappingFragment StoreEntitySet="Evidencias">
+                <ScalarProperty Name="EvidenciaId" ColumnName="EvidenciaId" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="BancoId" ColumnName="BancoId" />
+                <ScalarProperty Name="TipoTransaccionId" ColumnName="TipoTransaccionId" />
+                <ScalarProperty Name="NumeroTransferencia" ColumnName="NumeroTransferencia" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="MontoPago" ColumnName="MontoPago" />
+                <ScalarProperty Name="NoFacturaPagada" ColumnName="NoFacturaPagada" />
+                <ScalarProperty Name="ClaveEvidencia" ColumnName="ClaveEvidencia" />
+                <ScalarProperty Name="BitacoraCargaId" ColumnName="BitacoraCargaId" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="FacturacionModel.Personas">
+              <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="Rfc" ColumnName="Rfc" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receptores">
+            <EntityTypeMapping TypeName="FacturacionModel.Receptores">
+              <MappingFragment StoreEntitySet="Receptores">
+                <ScalarProperty Name="ReceptorId" ColumnName="ReceptorId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="DomicilioId" ColumnName="DomicilioId" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegimenesFiscales">
+            <EntityTypeMapping TypeName="FacturacionModel.RegimenesFiscales">
+              <MappingFragment StoreEntitySet="RegimenesFiscales">
+                <ScalarProperty Name="RegimenFiscalId" ColumnName="RegimenFiscalId" />
+                <ScalarProperty Name="RegimenFiscal" ColumnName="RegimenFiscal" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimbresFiscalesDigitales">
+            <EntityTypeMapping TypeName="FacturacionModel.TimbresFiscalesDigitales">
+              <MappingFragment StoreEntitySet="TimbresFiscalesDigitales">
+                <ScalarProperty Name="TimbreFiscalDigitalId" ColumnName="TimbreFiscalDigitalId" />
+                <ScalarProperty Name="ComprobanteId" ColumnName="ComprobanteId" />
+                <ScalarProperty Name="FechaTimbrado" ColumnName="FechaTimbrado" />
+                <ScalarProperty Name="NoCertificadoSAT" ColumnName="NoCertificadoSAT" />
+                <ScalarProperty Name="SelloCFD" ColumnName="SelloCFD" />
+                <ScalarProperty Name="SelloSAT" ColumnName="SelloSAT" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposImpuesto">
+            <EntityTypeMapping TypeName="FacturacionModel.TiposImpuesto">
+              <MappingFragment StoreEntitySet="TiposImpuesto">
+                <ScalarProperty Name="TipoImpuestoId" ColumnName="TipoImpuestoId" />
+                <ScalarProperty Name="TipoImpuesto" ColumnName="TipoImpuesto" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposTransacciones">
+            <EntityTypeMapping TypeName="FacturacionModel.TiposTransacciones">
+              <MappingFragment StoreEntitySet="TiposTransacciones">
+                <ScalarProperty Name="TipoTransaccionId" ColumnName="TipoTransaccionId" />
+                <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+                <ScalarProperty Name="TipoTransaccion" ColumnName="TipoTransaccion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAltaId" ColumnName="UsuarioAltaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="UsuarioCambioId" ColumnName="UsuarioCambioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,74 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="FacturaSite.master.cs" Inherits="FacturaSite.FacturaSite" %>
+
+<%@ Import Namespace="System.Web.Optimization" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+    <title>Factura Site</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%-- Style Section --%>
+    <%# Styles.Render("~/bundles/BootstrapCss") %>
+    <%# Styles.Render("~/Content/dropzonescss") %>
+    <asp:ContentPlaceHolder ID="StyleSection" runat="server" />
+</head>
+<body>
+    <%--<form id="form1" runat="server">--%>
+    <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Factura Site</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="./">Default</a></li>
+                        <li><a href="../navbar-static-top/">Static top</a></li>
+                        <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </div>
+        <!-- Content Page Section -->
+        <div class="container">
+            <asp:ContentPlaceHolder ID="ContentSection" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+    <!-- /container -->
+    <%-- Script Section --%>
+    <%: Scripts.Render("~/bundles/jQuery") %>
+    <%: Scripts.Render("~/bundles/dropzonescripts") %>
+    <asp:ContentPlaceHolder ID="ScriptSection" runat="server" />
+    <%--</form>--%>
+</body>
+</html>

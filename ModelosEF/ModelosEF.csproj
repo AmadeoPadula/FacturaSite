@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{23E876BC-87FE-4F6D-9ABA-CA5A1DE61F1C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModelosEF</RootNamespace>
+    <AssemblyName>ModelosEF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdsertiVS2013ClassLibrary">
+      <HintPath>..\..\AdsertiCredit\AdsertiCredit\bin\AdsertiVS2013ClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bancos.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraCargas.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessLogic\ComprobanteBusiness.cs" />
+    <Compile Include="Comprobantes.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComprobantesImpuestos.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Conceptos.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ComprobantesClass.cs" />
+    <Compile Include="DAL\ComprobantesImpuestosClass.cs" />
+    <Compile Include="DAL\ConceptosClass.cs" />
+    <Compile Include="DAL\DomiciliosClass.cs" />
+    <Compile Include="DAL\EmisoresClass.cs" />
+    <Compile Include="DAL\EmisoresRegimenesFiscalesClass.cs" />
+    <Compile Include="DAL\PersonasClass.cs" />
+    <Compile Include="DAL\ReceptoresClass.cs" />
+    <Compile Include="DAL\RegimenesFiscalesClass.cs" />
+    <Compile Include="DAL\TimbresFiscalesDigitalesClass.cs" />
+    <Compile Include="Domicilios.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Emisores.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmisoresRegimenesFiscales.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Empresas.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Evidencias.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FacturacionModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacturacionModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FacturacionModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FacturacionModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacturacionModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Generator.cs">
+      <DependentUpon>Generator.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Generator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Generator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BitacoraCarga.cs" />
+    <Compile Include="Models\Comprobante.cs" />
+    <Compile Include="Models\ComprobanteImpuesto.cs" />
+    <Compile Include="Models\Concepto.cs" />
+    <Compile Include="Models\Domicilio.cs" />
+    <Compile Include="Models\Emisor.cs" />
+    <Compile Include="Models\EmisorRegimenFiscal.cs" />
+    <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Receptor.cs" />
+    <Compile Include="Models\RegimenFiscal.cs" />
+    <Compile Include="Models\TimbreFiscalDigital.cs" />
+    <Compile Include="Personas.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receptores.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegimenesFiscales.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimbresFiscalesDigitales.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TiposImpuesto.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TiposTransacciones.cs">
+      <DependentUpon>FacturacionModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="FacturacionModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FacturacionModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="FacturacionModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FacturacionModel.edmx</DependentUpon>
+      <LastGenOutput>FacturacionModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="FacturacionModel.edmx.diagram">
+      <DependentUpon>FacturacionModel.edmx</DependentUpon>
+    </None>
+    <None Include="FacturacionModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FacturacionModel.edmx</DependentUpon>
+      <LastGenOutput>FacturacionModel.cs</LastGenOutput>
+    </None>
+    <None Include="Generator.xsc">
+      <DependentUpon>Generator.xsd</DependentUpon>
+    </None>
+    <None Include="Generator.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Generator.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Generator.xss">
+      <DependentUpon>Generator.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\2014.12.26 - gamers.xml" />
+    <Content Include="Files\ejemplo.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
