@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Cache;
+using System.Text;
 using AdsertiVS2013ClassLibrary;
 using FacturaSite.Models;
 
@@ -855,7 +856,110 @@ namespace FacturaSite.DataAccess
             } //catch (Exception ex)
         } // public Int32 Agregar(Models.Personas Personas, AdsertiSqlDataAccess adsertiDataAccess)
 
+        /// <summary>   
+        /// Cargar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez</para>
+        /// <para> Fecha de creación: Enero 27 de 2015 </para>
+        /// <para> Fecha de última modificación: Enero 27 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        /// <returns> Comprobantes </returns>
+        public List<Comprobantes> ComprobantesSinEvidencia(AdsertiSqlDataAccess adsertiDataAccess)
+        {
+            var sentenciaSql = new StringBuilder();
+            DataTable comprobanteDataTable;
+            SqlParameter[] listaParametros;
+            List<Comprobantes> comprobantesList = null;
 
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+
+            try
+            {
+                //Abre la conexion
+                adsertiDataAccess.AbrirConexion();
+
+                sentenciaSql.Append("SELECT ");
+                sentenciaSql.Append("	Comprobantes.ComprobanteId, ");
+                sentenciaSql.Append("	Comprobantes.Fecha, ");
+                sentenciaSql.Append("	Comprobantes.EmisorId, ");
+                sentenciaSql.Append("	PersonasEmisores.PersonaId EmisorPersonaId, ");
+                sentenciaSql.Append("	PersonasEmisores.Rfc EmisorRFC, ");
+                sentenciaSql.Append("	PersonasEmisores.Nombre Emisor, ");
+                sentenciaSql.Append("	Comprobantes.ReceptorId, ");
+                sentenciaSql.Append("	PersonasReceptores.PersonaId ReceptorPersonaId, ");
+                sentenciaSql.Append("	PersonasReceptores.Rfc ReceptorRFC, ");
+                sentenciaSql.Append("	PersonasReceptores.Nombre Receptor, ");
+                sentenciaSql.Append("	Comprobantes.Total ");
+                sentenciaSql.Append("FROM  ");
+                sentenciaSql.Append("	(SELECT  ");
+                sentenciaSql.Append("			ComprobanteId ");
+                sentenciaSql.Append("		FROM ");
+                sentenciaSql.Append("			Comprobantes ");
+                sentenciaSql.Append("	EXCEPT ");
+                sentenciaSql.Append("	SELECT  ");
+                sentenciaSql.Append("			ComprobanteId  ");
+                sentenciaSql.Append("		FROM  ");
+                sentenciaSql.Append("			Evidencias) ComprobantesSinEvidencia INNER JOIN dbo.Comprobantes  ");
+                sentenciaSql.Append("		ON ComprobantesSinEvidencia.ComprobanteId = Comprobantes.ComprobanteId ");
+                sentenciaSql.Append("	INNER JOIN dbo.Emisores ");
+                sentenciaSql.Append("		ON Comprobantes.EmisorId = Emisores.EmisorId ");
+                sentenciaSql.Append("	INNER JOIN dbo.Personas PersonasEmisores ");
+                sentenciaSql.Append("		ON Emisores.PersonaId = PersonasEmisores.PersonaId ");
+                sentenciaSql.Append("	INNER JOIN dbo.Receptores ");
+                sentenciaSql.Append("		ON Comprobantes.ReceptorId = Receptores.ReceptorId ");
+                sentenciaSql.Append("	INNER JOIN dbo.Personas PersonasReceptores ");
+                sentenciaSql.Append("		ON Receptores.PersonaId = PersonasReceptores.PersonaId ");
+                sentenciaSql.Append("ORDER BY Comprobantes.Fecha DESC ");
+
+                comprobanteDataTable = adsertiDataAccess.ObtenerDataTable(CommandType.Text, sentenciaSql.ToString(), null);
+
+                if (comprobanteDataTable.Rows.Count <= 0) return null;
+
+                comprobantesList = new List<Comprobantes>();
+
+                foreach (DataRow comprobanteDataRow in comprobanteDataTable.Rows)
+                {
+                    Comprobantes comprobante = new Comprobantes();
+
+                    comprobante.ComprobanteId = Convert.ToInt32(comprobanteDataRow["ComprobanteId"]);
+
+                    //Emisores
+                    comprobante.Emisores = new Emisores
+                    {
+                        EmisorId = Convert.ToInt32(comprobanteDataRow["EmisorId"]),
+                        Personas = new Personas()
+                        {
+                            PersonaId = Convert.ToInt32(comprobanteDataRow["EmisorPersonaId"]),
+                            Nombre = (comprobanteDataRow["Emisor"]).ToString()
+                        }
+                    };
+
+                    //Receptores
+                    comprobante.Receptores = new Receptores()
+                    {
+                        ReceptorId = Convert.ToInt32(comprobanteDataRow["ReceptorId"]),
+                        Personas = new Personas()
+                        {
+                            PersonaId = Convert.ToInt32(comprobanteDataRow["ReceptorPersonaId"]),
+                            Nombre = (comprobanteDataRow["Receptor"]).ToString()
+                        }
+                    };
+
+                    comprobante.Fecha = Convert.ToDateTime(comprobanteDataRow["Fecha"]);
+                    comprobante.Total = Convert.ToDecimal(comprobanteDataRow["Total"]);
+
+                    comprobantesList.Add(comprobante);
+                }
+
+                return comprobantesList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+        }
 
         #endregion
     }

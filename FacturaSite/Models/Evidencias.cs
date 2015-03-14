@@ -14,14 +14,14 @@ namespace FacturaSite.Models
         public string NumeroTransferencia { get; set; }
         public System.DateTime FechaPago { get; set; }
         public decimal MontoPago { get; set; }
-        public string NoFacturaPagada { get; set; }
+        //public string NoFacturaPagada { get; set; }
         public string ClaveEvidencia { get; set; }
         public int BitacoraCargaId { get; set; }
         public System.DateTime FechaAlta { get; set; }
         public int UsuarioAltaId { get; set; }
         public Nullable<System.DateTime> FechaCambio { get; set; }
         public Nullable<int> UsuarioCambioId { get; set; }
-
+        public Nullable<Int32> ComprobanteId { get; set; }
         public Empresas Empresa { get; set; }
         public TiposTransacciones TipoTransaccion { get; set; }
         public Bancos Banco { get; set; }

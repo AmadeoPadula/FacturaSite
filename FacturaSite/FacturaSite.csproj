@@ -165,8 +165,18 @@
     <Content Include="AjaxControlToolkit.config" />
     <Content Include="Handler\FileHandler.ashx" />
     <Content Include="DiagramaClases.cd" />
+    <Content Include="Scripts\autoNumericCfg.min.js.map">
+      <DependentUpon>autoNumericCfg.min.js</DependentUpon>
+    </Content>
+    <Content Include="App_Themes\FacturaSite\FacturaSite.skin" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\ASPSnippets_Pager.min.js" />
+    <Content Include="Scripts\autoNumericCfg.js" />
+    <Content Include="Scripts\autoNumericCfg.min.js">
+      <DependentUpon>autoNumericCfg.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.js" />
+    <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />

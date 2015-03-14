@@ -49,13 +49,13 @@ namespace FacturaSite.Evidencias {
         protected global::System.Web.UI.WebControls.Button btnDelete;
         
         /// <summary>
-        /// Label1 control.
+        /// BuscarLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label BuscarLabel;
         
         /// <summary>
         /// txtSearch control.
@@ -157,22 +157,49 @@ namespace FacturaSite.Evidencias {
         protected global::System.Web.UI.WebControls.TextBox MontoPagoTextBox;
         
         /// <summary>
-        /// NoFacturaPagadaTextBox control.
+        /// ComprobantesSinEvidenciasUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NoFacturaPagadaTextBox;
+        protected global::System.Web.UI.UpdatePanel ComprobantesSinEvidenciasUpdatePanel;
         
         /// <summary>
-        /// ClaveEvidenciaTextBox control.
+        /// ComprobanteSeleccionadoTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ClaveEvidenciaTextBox;
+        protected global::System.Web.UI.WebControls.TextBox ComprobanteSeleccionadoTextBox;
+        
+        /// <summary>
+        /// ComprobantesDropDownListPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ComprobantesDropDownListPanel;
+        
+        /// <summary>
+        /// ComprobantesSinEvidenciaGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ComprobantesSinEvidenciaGridView;
+        
+        /// <summary>
+        /// FacturaSinEvidenciasDropDownExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.DropDownExtender FacturaSinEvidenciasDropDownExtender;
         
         /// <summary>
         /// btnSave control.

@@ -51,13 +51,11 @@ namespace FacturaSite.DataAccess
             if (evidencia == null)
                 throw new ArgumentNullException("emisor");
             if (evidencia.Empresa.EmpresaId == 0)
-                throw new ArgumentNullException("BancoId");
+                throw new ArgumentNullException("EmpresaId");
             if (evidencia.TipoTransaccion.TipoTransaccionId == 0)
                 throw new ArgumentNullException("TipoTransaccionId");
             if (String.IsNullOrEmpty(evidencia.NumeroTransferencia))
                 throw new ArgumentNullException("NumeroTransferencia");
-            if (String.IsNullOrEmpty(evidencia.NoFacturaPagada))
-                throw new ArgumentNullException("NoFacturaPagada");
             try
             {
                 //Configura la sentencia por ejecutar
@@ -81,7 +79,7 @@ namespace FacturaSite.DataAccess
                 sentenciaSql += "	,@NumeroTransferencia ";
                 sentenciaSql += "	,@FechaPago ";
                 sentenciaSql += "	,@MontoPago ";
-                sentenciaSql += "	,@NoFacturaPagada ";
+                sentenciaSql += "	,@ComprobanteId ";
                 sentenciaSql += "	,@ClaveEvidencia ";
                 sentenciaSql += "	,@BitacoraCargaId ";
                 sentenciaSql += "	,getdate() ";
@@ -97,7 +95,7 @@ namespace FacturaSite.DataAccess
                     new SqlParameter("@NumeroTransferencia", evidencia.NumeroTransferencia),
                     new SqlParameter("@FechaPago", evidencia.FechaPago),
                     new SqlParameter("@MontoPago", evidencia.MontoPago),
-                    new SqlParameter("@NoFacturaPagada", evidencia.NoFacturaPagada),
+                    new SqlParameter("@ComprobanteId", evidencia.ComprobanteId),
                     new SqlParameter("@ClaveEvidencia", evidencia.ClaveEvidencia),
                     new SqlParameter("@BitacoraCargaId", evidencia.BitacoraCargaId),
                     new SqlParameter("@UsuarioAltaId", evidencia.UsuarioAltaId)

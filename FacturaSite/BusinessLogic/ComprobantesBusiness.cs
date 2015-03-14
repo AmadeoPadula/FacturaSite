@@ -189,9 +189,8 @@ namespace FacturaSite.BusinessLogic
             } //finally
         }
 
-
         /// <summary>
-        /// Agregar()
+        /// VincularBitacora()
         /// <para> Adserti </para>
         /// <para> Este método fue creado por Arturo Hernandez </para>
         /// <para> Fecha de creación: Enero 19 de 2015 </para>
@@ -232,5 +231,41 @@ namespace FacturaSite.BusinessLogic
                 adsertiDataAccess.CerrarConexion();
             } //finally
         }
+
+        /// <summary>
+        /// ComprobantesSinEvidencia()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Enero 19 de 2015 </para>
+        /// <para> Fecha de última modificación: Enero 19 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public List<Comprobantes> ComprobantesSinEvidencia()
+        {
+            //Instacia la clase de acceso a datos
+            AdsertiSqlDataAccess adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+
+            try
+            {
+                //Abre la conexion
+                adsertiDataAccess.AbrirConexion();
+                adsertiDataAccess.AbrirTransaccion();
+
+                ComprobantesClass comprobantesDataAccess = new ComprobantesClass();
+
+                return comprobantesDataAccess.ComprobantesSinEvidencia(adsertiDataAccess);
+
+            }
+            catch (Exception ex)
+            {
+                adsertiDataAccess.CancelarTransaccion();
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        }
+
     }
 }
