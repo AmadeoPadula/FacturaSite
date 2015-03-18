@@ -58,5 +58,12 @@ namespace FacturaSite.Models
 
         public BitacoraCargas BitacoraCargasPdf { get; set; }
         public BitacoraCargas BitacoraCargasXml { get; set; }
+
+
+        public String Identificador
+        {
+            get { return Serie.Trim() + Folio.Trim(); }
+        }
+
     }
 }

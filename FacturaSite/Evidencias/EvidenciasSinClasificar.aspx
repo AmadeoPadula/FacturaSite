@@ -1,13 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/FacturaSite.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="EvidenciasSinClasificar.aspx.cs" Inherits="FacturaSite.Evidencias.EvidenciasSinClasificar" %>
 
 <asp:Content ID="StyleContent" ContentPlaceHolderID="StyleSection" runat="server">
+    <link href="../Content/themes/bootstrap/easyui.css" rel="stylesheet" />
     <style>
-        .headerDiv {
-            background: #3abb73;
-            margin: 0;
-            /*height: 80px;*/
-            text-align: left;
+
+        .ui-widget-content .ui-icon {
+            background-image: url("../Content/themes/base/images/ui-icons_222222_256x240.png") /*{iconsContent}*/;
         }
+
+         .headerDiv {
+             background: #3abb73;
+             margin: 0;
+             /*height: 80px;*/
+             text-align: left;
+         }
 
         .title {
             color: #F7FAFA;
@@ -131,31 +137,11 @@
                                                 <asp:TextBox ID="MontoPagoTextBox" runat="server" SkinID="NumerosMoneda"></asp:TextBox>
                                             </div>
                                             <%--NÚMERO FACTURA PAGADA--%>
-
-                                            <div>
-                                                <asp:UpdatePanel runat="server" ID="ComprobantesSinEvidenciasUpdatePanel">
-                                                    <ContentTemplate>
-                                                        <asp:TextBox runat="server" ID="ComprobanteSeleccionadoTextBox" ReadOnly="True" />
-                                                        <asp:Panel runat="server" ID="ComprobantesDropDownListPanel" Style="max-height: 150px; overflow: scroll; display: none; visibility: hidden;">
-                                                            <asp:GridView runat="server" ID="ComprobantesSinEvidenciaGridView" AutoGenerateColumns="False"
-                                                                OnRowDataBound="ComprobantesSinEvidenciaGridView_OnRowDataBound"
-                                                                OnSelectedIndexChanged="ComprobantesSinEvidenciaGridView_OnSelectedIndexChanged">
-                                                                <Columns>
-                                                                    <asp:BoundField DataField="ComprobanteId" HeaderText="ComprobanteId" />
-                                                                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
-                                                                    <asp:BoundField DataField="Total" DataFormatString="{0:c}" HeaderText="Total" ItemStyle-HorizontalAlign="Right" />
-                                                                </Columns>
-                                                            </asp:GridView>
-                                                        </asp:Panel>
-                                                        <ajaxToolkit:DropDownExtender ID="FacturaSinEvidenciasDropDownExtender"
-                                                            runat="server"
-                                                            DropDownControlID="ComprobantesDropDownListPanel"
-                                                            TargetControlID="ComprobanteSeleccionadoTextBox">
-                                                        </ajaxToolkit:DropDownExtender>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
+                                            <div class="form-group">
+                                                <label>Factura Pagada: </label>
+                                                <br/>
+                                                <asp:DropDownList ID="FacturaPagadaDropDownList" runat="server" class="form-control" Height="34px" Width="190px" />
                                             </div>
-
 
                                             <%--CLAVE EVIDENCIA--%>
                                         </ContentTemplate>
@@ -181,14 +167,17 @@
 </asp:Content>
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptSection" runat="server">
     <script src="../Scripts/autoNumeric/autoNumeric-1.9.25.min.js"></script>
-   <%-- <script src="../Scripts/autoNumericCfg.min.js"></script>--%>
+    <script src="../Scripts/autoNumericCfg.min.js"></script>
+    <script src="../Scripts/jquery.easyui.min-1.4.1.js"></script>
     <script type="text/javascript">
-        //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(InIEvent);
-        //function InIEvent() {
-        //    ConfiguraAutoNumeric();
-        //}
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(InIEvent);
+        function InIEvent() {
+            ConfiguraAutoNumeric();
+            ActualizaFacturasPendientes();
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        }
 
-        //$(document).ready(InIEvent);
+        $(document).ready(InIEvent);
 
         function pageLoad(sender, args) {
             if (args.get_isPartialLoad()) {
@@ -216,5 +205,96 @@
         function ShowModal() {
             $('#myModal').modal('show');
         }
+
+        //NUMERO DE FACTURA PAGADA
+        var ActualizaFacturasPendientes =
+        (function () {
+            var jsonData = [];
+            $.ajax({
+                type: "POST",
+                async: false,
+                mode: 'remote',
+                contentType: "application/json; charset=utf-8",
+                url: "EvidenciasSinClasificar.aspx/AutoArrayList",
+                dataType: "json",
+                success: function(data) {
+                    jsonData = data.d;
+                },
+                error: function(result) {
+                    alert("Error");
+                }
+
+            });
+
+            $('[id$=FacturaPagadaDropDownList]').combogrid({
+                panelWidth: 500,
+                //value: '006',
+                idField: 'ComprobanteId',
+                textField: 'Identificador',
+                editable: false,
+                //url: '/combogrid/GetStudentsInfo',
+                //source:jsonData,
+                columns: [
+                    [
+                        {
+                            field: 'Fecha.Formateada',
+                            title: 'Fecha',
+                            width: 120,
+                            formatter: function(value, row) {
+                                var date = new Date(parseInt(row.Fecha.substr(6)));
+
+                                var dformat = [
+                                    date.getDate().padLeft(),
+                                    (date.getMonth() + 1).padLeft(),
+                                    date.getFullYear()
+                                ].join('/') + ' ' +
+                                [
+                                    date.getHours().padLeft(),
+                                    date.getMinutes().padLeft(),
+                                    date.getSeconds().padLeft()
+                                ].join(':');
+                                return dformat;
+                            }
+                        },
+                        { field: 'Serie', title: 'Serie', width: 70 },
+                        { field: 'Folio', title: 'Folio', width: 70 },
+                        { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
+                        { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
+                        { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
+                        { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
+                        { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
+                    ]
+                ]
+            });
+
+            // get the datagrid object
+            var g = $('[id$=FacturaPagadaDropDownList]').combogrid('grid');
+            //assign the data to datagrid
+            g.datagrid('loadData', jsonData);
+        });
+        Number.prototype.padLeft = function (base, chr) {
+            var len = (String(base || 10).length - String(this).length) + 1;
+            return len > 0 ? new Array(len).join(chr || '0') + this : this;
+        }
+
+
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '',
+            nextText: '',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+
     </script>
 </asp:Content>

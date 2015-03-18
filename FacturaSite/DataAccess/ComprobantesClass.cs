@@ -882,6 +882,8 @@ namespace FacturaSite.DataAccess
 
                 sentenciaSql.Append("SELECT ");
                 sentenciaSql.Append("	Comprobantes.ComprobanteId, ");
+                sentenciaSql.Append("	Comprobantes.Serie, ");
+                sentenciaSql.Append("	Comprobantes.Folio, ");
                 sentenciaSql.Append("	Comprobantes.Fecha, ");
                 sentenciaSql.Append("	Comprobantes.EmisorId, ");
                 sentenciaSql.Append("	PersonasEmisores.PersonaId EmisorPersonaId, ");
@@ -932,6 +934,7 @@ namespace FacturaSite.DataAccess
                         Personas = new Personas()
                         {
                             PersonaId = Convert.ToInt32(comprobanteDataRow["EmisorPersonaId"]),
+                            Rfc = (comprobanteDataRow["EmisorRFC"]).ToString(),
                             Nombre = (comprobanteDataRow["Emisor"]).ToString()
                         }
                     };
@@ -943,10 +946,13 @@ namespace FacturaSite.DataAccess
                         Personas = new Personas()
                         {
                             PersonaId = Convert.ToInt32(comprobanteDataRow["ReceptorPersonaId"]),
+                            Rfc = (comprobanteDataRow["ReceptorRFC"]).ToString(),
                             Nombre = (comprobanteDataRow["Receptor"]).ToString()
                         }
                     };
 
+                    comprobante.Serie = (comprobanteDataRow["Serie"]).ToString();
+                    comprobante.Folio = (comprobanteDataRow["Folio"]).ToString();
                     comprobante.Fecha = Convert.ToDateTime(comprobanteDataRow["Fecha"]);
                     comprobante.Total = Convert.ToDecimal(comprobanteDataRow["Total"]);
 

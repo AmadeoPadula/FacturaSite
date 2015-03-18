@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaSite.BusinessLogic;
@@ -19,16 +21,16 @@ namespace FacturaSite.Evidencias
                 CargarBancos();
                 CargarEmpresas();
                 CargarTiposTransacciones();
-                CargarComprobantesSinEvidencia();
             }
         }
 
-        protected void CargarComprobantesSinEvidencia()
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<Comprobantes> AutoArrayList()
         {
             ComprobantesBusiness comprobantes = new ComprobantesBusiness();
 
-            ComprobantesSinEvidenciaGridView.DataSource = comprobantes.ComprobantesSinEvidencia();
-            ComprobantesSinEvidenciaGridView.DataBind();
+            return comprobantes.ComprobantesSinEvidencia();
         }
 
         protected void CargarBancos()
@@ -143,25 +145,6 @@ namespace FacturaSite.Evidencias
             MontoPagoTextBox.Text = string.Empty;
             //NoFacturaPagadaTextBox.Text = string.Empty;
         }
-
-        protected void ComprobantesSinEvidenciaGridView_OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType != DataControlRowType.DataRow)
-                return;
-
-            e.Row.Attributes["onmouseover"] = "this.style.cursor='hand';"
-                                              + "this.originalBackgroundColor=this.style.backgroundColor;"
-                                              + "this.style.backgroundColor='#bbbbbb';";
-
-            e.Row.Attributes["onmouseout"] = "this.style.backgroundColor=this.originalBackgroundColor;";
-
-            e.Row.Attributes["onclick"] =
-                ClientScript.GetPostBackClientHyperlink(this.ComprobantesSinEvidenciaGridView, "Select$" + e.Row.RowIndex);
-        }
-
-        protected void ComprobantesSinEvidenciaGridView_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComprobanteSeleccionadoTextBox.Text = ComprobantesSinEvidenciaGridView.SelectedRow != null ? Server.HtmlDecode(ComprobantesSinEvidenciaGridView.SelectedRow.Cells[1].Text) : string.Empty;
-        }
+        
     }
 }
