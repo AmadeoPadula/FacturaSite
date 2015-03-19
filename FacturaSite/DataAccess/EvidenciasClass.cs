@@ -60,20 +60,20 @@ namespace FacturaSite.DataAccess
             {
                 //Configura la sentencia por ejecutar
                 sentenciaSql = "INSERT INTO [Evidencias] ( ";
-                sentenciaSql += "	,[EmpresaId] ";
+                sentenciaSql += "	[EmpresaId] ";
                 sentenciaSql += "	,[BancoId] ";
                 sentenciaSql += "	,[TipoTransaccionId] ";
                 sentenciaSql += "	,[NumeroTransferencia] ";
                 sentenciaSql += "	,[FechaPago] ";
                 sentenciaSql += "	,[MontoPago] ";
-                sentenciaSql += "	,[NoFacturaPagada] ";
+                sentenciaSql += "	,[ComprobanteId] ";
                 sentenciaSql += "	,[ClaveEvidencia] ";
                 sentenciaSql += "	,[BitacoraCargaId] ";
                 sentenciaSql += "	,[FechaAlta] ";
                 sentenciaSql += "	,[UsuarioAltaId] ";
                 sentenciaSql += "	) ";
                 sentenciaSql += "VALUES ( ";
-                sentenciaSql += "	,@EmpresaId ";
+                sentenciaSql += "	@EmpresaId ";
                 sentenciaSql += "	,@BancoId ";
                 sentenciaSql += "	,@TipoTransaccionId ";
                 sentenciaSql += "	,@NumeroTransferencia ";
@@ -95,7 +95,7 @@ namespace FacturaSite.DataAccess
                     new SqlParameter("@NumeroTransferencia", evidencia.NumeroTransferencia),
                     new SqlParameter("@FechaPago", evidencia.FechaPago),
                     new SqlParameter("@MontoPago", evidencia.MontoPago),
-                    new SqlParameter("@ComprobanteId", evidencia.ComprobanteId),
+                    new SqlParameter("@ComprobanteId", evidencia.Comprobante.ComprobanteId),
                     new SqlParameter("@ClaveEvidencia", evidencia.ClaveEvidencia),
                     new SqlParameter("@BitacoraCargaId", evidencia.BitacoraCargaId),
                     new SqlParameter("@UsuarioAltaId", evidencia.UsuarioAltaId)

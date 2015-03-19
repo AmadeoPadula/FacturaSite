@@ -148,6 +148,15 @@ namespace FacturaSite.Evidencias {
         protected global::System.Web.UI.WebControls.TextBox FechaPagoTextBox;
         
         /// <summary>
+        /// FacturaPagadaDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList FacturaPagadaDropDownList;
+        
+        /// <summary>
         /// MontoPagoTextBox control.
         /// </summary>
         /// <remarks>
@@ -157,13 +166,22 @@ namespace FacturaSite.Evidencias {
         protected global::System.Web.UI.WebControls.TextBox MontoPagoTextBox;
         
         /// <summary>
-        /// FacturaPagadaDropDownList control.
+        /// BitacoraCargaIdHiddenField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList FacturaPagadaDropDownList;
+        protected global::System.Web.UI.WebControls.HiddenField BitacoraCargaIdHiddenField;
+        
+        /// <summary>
+        /// FacturaSeleccionadaHiddenField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField FacturaSeleccionadaHiddenField;
         
         /// <summary>
         /// btnSave control.

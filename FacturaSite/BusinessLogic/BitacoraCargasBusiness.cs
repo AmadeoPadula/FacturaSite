@@ -153,7 +153,41 @@ namespace FacturaSite.BusinessLogic
             {
                 adsertiDataAccess.CerrarConexion();
             } //finally
-        }
+        } // public BitacoraCargas Cargar(Int32 bitacoraId)
+
+        /// <summary>
+        /// Eliminar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Marzo 18 de 2015 </para>
+        /// <para> Fecha de última modificación: Marzo 18 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public void Eiminar(Int32 bitacoraId)
+        {
+            AdsertiSqlDataAccess adsertiDataAccess;
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+            try
+            {
+                adsertiDataAccess.AbrirConexion();
+
+                BitacoraCargasClass bitacoraCargaDataAccess = new BitacoraCargasClass();
+                BitacoraCargas bitacoraCarga = bitacoraCargaDataAccess.Cargar(bitacoraId, adsertiDataAccess);
+
+                //Validar si existe el elemento
+                if (bitacoraCarga != null)
+                    bitacoraCargaDataAccess.Eliminar(bitacoraCarga, adsertiDataAccess);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        } // public void Eiminar(Int32 bitacoraId)
 
 
         #endregion

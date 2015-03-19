@@ -426,7 +426,7 @@ namespace FacturaSite.DataAccess
             {
                 throw ex;
             } //catch (Exception ex)
-        }
+        } // public List<BitacoraCargas> CargasSinClasificar(AdsertiSqlDataAccess adsertiDataAccess)
 
         #endregion
     }

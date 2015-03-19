@@ -21,10 +21,14 @@ namespace FacturaSite.Models
         public int UsuarioAltaId { get; set; }
         public Nullable<System.DateTime> FechaCambio { get; set; }
         public Nullable<int> UsuarioCambioId { get; set; }
-        public Nullable<Int32> ComprobanteId { get; set; }
+
+        //public Nullable<Int32> ComprobanteId { get; set; }
+        
         public Empresas Empresa { get; set; }
         public TiposTransacciones TipoTransaccion { get; set; }
         public Bancos Banco { get; set; }
+
+        public Comprobantes Comprobante { get; set; }
 
     }
 }

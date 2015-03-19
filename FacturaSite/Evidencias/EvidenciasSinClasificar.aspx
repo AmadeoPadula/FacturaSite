@@ -3,17 +3,16 @@
 <asp:Content ID="StyleContent" ContentPlaceHolderID="StyleSection" runat="server">
     <link href="../Content/themes/bootstrap/easyui.css" rel="stylesheet" />
     <style>
-
         .ui-widget-content .ui-icon {
             background-image: url("../Content/themes/base/images/ui-icons_222222_256x240.png") /*{iconsContent}*/;
         }
 
-         .headerDiv {
-             background: #3abb73;
-             margin: 0;
-             /*height: 80px;*/
-             text-align: left;
-         }
+        .headerDiv {
+            background: #3abb73;
+            margin: 0;
+            /*height: 80px;*/
+            text-align: left;
+        }
 
         .title {
             color: #F7FAFA;
@@ -58,7 +57,7 @@
                         <div class="gridWrapper">
                             <div>
                                 <asp:Button ID="btnAdd" runat="server" Text="Agregar" class="btn btn-primary" />&nbsp;
-                                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" class="btn btn-primary" OnClientClick="return confirm('¿Realmente desea eliminar la entrada?');" />&nbsp;
+                                <asp:Button ID="btnDelete" runat="server" Text="Eliminar" class="btn btn-primary" OnClientClick="return confirm('¿Realmente desea eliminar la entrada?');" OnClick="btnDelete_OnClick" />&nbsp;
                                 <asp:Label ID="BuscarLabel" runat="server" Text="Buscar por Nombre : "></asp:Label>
                                 <asp:TextBox ID="txtSearch" runat="server" class="form-control" Style="margin-top: 5px;"></asp:TextBox>
                                 <asp:Button ID="btnSearch" runat="server" Text="Ir!" class="btn btn-primary" />
@@ -77,7 +76,7 @@
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="ClasificarLinkButton" runat="server" CommandName="select" CommandArgument='<%# Eval("BitacoraCargaId") %>'>Clasificar</asp:LinkButton>&nbsp;&nbsp;|&nbsp;
                                                     <asp:CheckBox ID="chkEliminarCheckBox" runat="server" AutoPostBack="True" />
-                                                        <asp:HiddenField ID="BitacoraCargaId" runat="server" Value='<%# Eval("BitacoraCargaId") %>' />
+                                                        <asp:HiddenField ID="BitacoraCargaIdHiddenField" runat="server" Value='<%# Eval("BitacoraCargaId") %>' />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
@@ -131,17 +130,24 @@
                                                 <label>Fecha Pago: </label>
                                                 <asp:TextBox ID="FechaPagoTextBox" runat="server" class="form-control"></asp:TextBox>
                                             </div>
+
+                                            <%--NÚMERO FACTURA PAGADA--%>
+                                            <div class="form-group">
+                                                <label>Factura Pagada: </label>
+                                                <br />
+                                                <asp:DropDownList ID="FacturaPagadaDropDownList" runat="server" class="form-control" Height="34px" Width="190px" />
+                                            </div>
+
                                             <%--MONTO PAGO--%>
                                             <div class="form-group">
                                                 <label>Monto Pago: </label>
                                                 <asp:TextBox ID="MontoPagoTextBox" runat="server" SkinID="NumerosMoneda"></asp:TextBox>
                                             </div>
-                                            <%--NÚMERO FACTURA PAGADA--%>
-                                            <div class="form-group">
-                                                <label>Factura Pagada: </label>
-                                                <br/>
-                                                <asp:DropDownList ID="FacturaPagadaDropDownList" runat="server" class="form-control" Height="34px" Width="190px" />
-                                            </div>
+
+
+
+                                            <asp:HiddenField runat="server" ID="BitacoraCargaIdHiddenField" />
+                                            <asp:HiddenField runat="server" ID="FacturaSeleccionadaHiddenField" />
 
                                             <%--CLAVE EVIDENCIA--%>
                                         </ContentTemplate>
@@ -149,15 +155,16 @@
                                             <asp:AsyncPostBackTrigger ControlID="EvidenciasSinClasificarGridView" EventName="RowCommand" />
                                         </Triggers>
                                     </asp:UpdatePanel>
-
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Cerrar</button>
-                                <asp:Button ID="btnSave" runat="server" Text="Guardar" CssClass="btn btn-primary" />
+                                <asp:Button ID="btnSave" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnSave_OnClick" />
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
                 <%--FIN MODAL--%>
@@ -217,60 +224,72 @@
                 contentType: "application/json; charset=utf-8",
                 url: "EvidenciasSinClasificar.aspx/AutoArrayList",
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     jsonData = data.d;
                 },
-                error: function(result) {
+                error: function (result) {
                     alert("Error");
                 }
 
             });
 
-            $('[id$=FacturaPagadaDropDownList]').combogrid({
-                panelWidth: 500,
-                //value: '006',
-                idField: 'ComprobanteId',
-                textField: 'Identificador',
-                editable: false,
-                //url: '/combogrid/GetStudentsInfo',
-                //source:jsonData,
-                columns: [
-                    [
-                        {
-                            field: 'Fecha.Formateada',
-                            title: 'Fecha',
-                            width: 120,
-                            formatter: function(value, row) {
-                                var date = new Date(parseInt(row.Fecha.substr(6)));
+            if (jsonData != null) {
+                $('[id$=FacturaPagadaDropDownList]').combogrid({
+                    panelWidth: 500,
+                    //value: '006',
+                    idField: 'ComprobanteId',
+                    textField: 'Identificador',
+                    editable: false,
+                    //url: '/combogrid/GetStudentsInfo',
+                    //source:jsonData,
+                    columns: [
+                        [
+                            {
+                                field: 'Fecha.Formateada',
+                                title: 'Fecha',
+                                width: 120,
+                                formatter: function(value, row) {
+                                    var date = new Date(parseInt(row.Fecha.substr(6)));
 
-                                var dformat = [
-                                    date.getDate().padLeft(),
-                                    (date.getMonth() + 1).padLeft(),
-                                    date.getFullYear()
-                                ].join('/') + ' ' +
-                                [
-                                    date.getHours().padLeft(),
-                                    date.getMinutes().padLeft(),
-                                    date.getSeconds().padLeft()
-                                ].join(':');
-                                return dformat;
-                            }
-                        },
-                        { field: 'Serie', title: 'Serie', width: 70 },
-                        { field: 'Folio', title: 'Folio', width: 70 },
-                        { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
-                        { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
-                        { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
-                        { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
-                        { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
-                    ]
-                ]
-            });
+                                    var dformat = [
+                                        date.getDate().padLeft(),
+                                        (date.getMonth() + 1).padLeft(),
+                                        date.getFullYear()
+                                    ].join('/') + ' ' +
+                                    [
+                                        date.getHours().padLeft(),
+                                        date.getMinutes().padLeft(),
+                                        date.getSeconds().padLeft()
+                                    ].join(':');
+                                    return dformat;
+                                }
+                            },
+                            { field: 'Serie', title: 'Serie', width: 70 },
+                            { field: 'Folio', title: 'Folio', width: 70 },
+                            { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
+                            { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
+                            { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
+                            { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
+                            { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
+                        ]
+                    ],
+                    onSelect: function(index, row) {
+                        var comprobante = row.ComprobanteId;
+                        $('#' + '<%= FacturaSeleccionadaHiddenField.ClientID%>').val(comprobante);
 
-            // get the datagrid object
-            var g = $('[id$=FacturaPagadaDropDownList]').combogrid('grid');
-            //assign the data to datagrid
-            g.datagrid('loadData', jsonData);
+                        //Si el input correspondiente al monto del pago esta vacio, asigna el Total de la Factura Seleccionada
+                        <%--var monto = $('#' + '<%= MontoPagoTextBox.ClientID%>').val();
+                    if (!monto) {--%>
+                        $('#' + '<%= MontoPagoTextBox.ClientID%>').autoNumeric('set', row.Total);
+                        //}
+                    }
+                });
+
+                // get the datagrid object
+                var g = $('[id$=FacturaPagadaDropDownList]').combogrid('grid');
+                //assign the data to datagrid
+                g.datagrid('loadData', jsonData);
+            }
         });
         Number.prototype.padLeft = function (base, chr) {
             var len = (String(base || 10).length - String(this).length) + 1;

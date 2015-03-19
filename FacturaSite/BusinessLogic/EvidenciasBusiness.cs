@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web;
 using AdsertiVS2013ClassLibrary;
 using FacturaSite.DataAccess;
@@ -36,6 +37,78 @@ namespace FacturaSite.BusinessLogic
 
         #region * Métodos creados por Adserti *
 
+        private String CalcularClaveEvidencia(Models.Evidencias evidencia)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(evidencia.Empresa.Identificador); //Empresa
+            sb.Append(evidencia.Banco.Identificador); //Banco
+            sb.Append(evidencia.TipoTransaccion.Identificador); //Transaccion
+            sb.Append(evidencia.NumeroTransferencia.ToString()); //Numero de Transferencia
+            sb.Append(evidencia.FechaPago.ToString("yyyyMMdd")); //Fecha Pago 
+            sb.Append(((int) evidencia.MontoPago).ToString()); // Monto Pagado
+
+            sb.Append(evidencia.Comprobante.Identificador); // Factura Pagada
+            sb.Append(' '); // Espacio en blanco
+            sb.Append(evidencia.Comprobante.BitacoraCargasXml.NombreArchivo); // Nombre Archivo Factura
+            //sb.Append(); // Extension archivo
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Agregar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Marzo 18 de 2015 </para>
+        /// <para> Fecha de última modificación: Marzo 18 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public Int32 Agregar(Models.Evidencias evidencia)
+        {
+            AdsertiSqlDataAccess adsertiDataAccess;
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+            try
+            {
+                adsertiDataAccess.AbrirConexion();
+                EvidenciasClass evidenciasDataAccess = new EvidenciasClass();
+
+                //Consulta Información para completar información de la evidencia
+                BancosClass bancosDataAccess = new BancosClass();
+                Bancos banco = bancosDataAccess.Cargar(evidencia.Banco.BancoId, adsertiDataAccess);
+
+                EmpresasClass empresasDataAccess = new EmpresasClass();
+                Empresas empresa = empresasDataAccess.Cargar(evidencia.Empresa.EmpresaId, adsertiDataAccess);
+
+                TiposTransaccionesClass tiposTransaccionesDataAccess = new TiposTransaccionesClass();
+                TiposTransacciones tipoTransaccion = tiposTransaccionesDataAccess.Cargar(evidencia.TipoTransaccion.TipoTransaccionId, adsertiDataAccess);
+
+                ComprobantesClass comprobantesDataAccess = new ComprobantesClass();
+                Comprobantes comprobante = comprobantesDataAccess.Cargar(evidencia.Comprobante.ComprobanteId, adsertiDataAccess);
+
+                BitacoraCargasClass bitacoraCargaDataAccesss = new BitacoraCargasClass();
+                BitacoraCargas bitacoraCargaXML = bitacoraCargaDataAccesss.Cargar(comprobante.BitacoraCargaIdXML, adsertiDataAccess);
+
+                evidencia.Empresa = empresa;
+                evidencia.Banco = banco;
+                evidencia.TipoTransaccion = tipoTransaccion;
+                evidencia.Comprobante = comprobante;
+                evidencia.Comprobante.BitacoraCargasXml = bitacoraCargaXML;
+                evidencia.ClaveEvidencia = CalcularClaveEvidencia(evidencia);
+
+                return evidenciasDataAccess.Agregar(evidencia, adsertiDataAccess);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        } // public Int32 Agregar(Models.Evidencias evidencia)
+
         public static List<Bancos> CargarBancos()
         {
             AdsertiSqlDataAccess adsertiDataAccess;
@@ -54,7 +127,7 @@ namespace FacturaSite.BusinessLogic
             {
                 adsertiDataAccess.CerrarConexion();
             } //finally
-        }
+        } // public static List<Bancos> CargarBancos()
 
         public static List<Empresas> CargarEmpresas()
         {
@@ -74,7 +147,7 @@ namespace FacturaSite.BusinessLogic
             {
                 adsertiDataAccess.CerrarConexion();
             } //finally
-        }
+        } // public static List<Empresas> CargarEmpresas()
 
 
         public static List<TiposTransacciones> CargarTiposTransacciones()
@@ -95,7 +168,7 @@ namespace FacturaSite.BusinessLogic
             {
                 adsertiDataAccess.CerrarConexion();
             } //finally
-        }
+        } // public static List<TiposTransacciones> CargarTiposTransacciones()
 
         #endregion
 

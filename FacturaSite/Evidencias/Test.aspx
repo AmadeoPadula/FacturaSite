@@ -27,49 +27,53 @@
 
             });
 
-            $('#drpSelectStudents').combogrid({
-                panelWidth: 450,
-                //value: '006',
-                idField: 'ComprobanteId',
-                textField: 'ComprobanteId',
-                //url: '/combogrid/GetStudentsInfo',
-                //source:jsonData,
-                columns: [
-                    [
-                        {
-                            field: 'Fecha.Formateada',
-                            title: 'Fecha',
-                            width: 120,
-                            formatter: function(value, row) {
-                                var date = new Date(parseInt(row.Fecha.substr(6)));
 
-                                var dformat = [
-                                    date.getDate().padLeft(),
-                                    (date.getMonth() + 1).padLeft(),
-                                    date.getFullYear()
-                                ].join('/') + ' ' +
-                                [
-                                    date.getHours().padLeft(),
-                                    date.getMinutes().padLeft(),
-                                    date.getSeconds().padLeft()
-                                ].join(':');
-                                return dformat;
-                            }
-                        },
-                        { field: 'Serie', title: 'Serie', width: 70 },
-                        { field: 'Folio', title: 'Folio', width: 70 },
-                        { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
-                        { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
-                        { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
-                        { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
-                        { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
+            if (jsonData != null) {
+
+                $('#drpSelectStudents').combogrid({
+                    panelWidth: 450,
+                    //value: '006',
+                    idField: 'ComprobanteId',
+                    textField: 'ComprobanteId',
+                    //url: '/combogrid/GetStudentsInfo',
+                    //source:jsonData,
+                    columns: [
+                        [
+                            {
+                                field: 'Fecha.Formateada',
+                                title: 'Fecha',
+                                width: 120,
+                                formatter: function(value, row) {
+                                    var date = new Date(parseInt(row.Fecha.substr(6)));
+
+                                    var dformat = [
+                                        date.getDate().padLeft(),
+                                        (date.getMonth() + 1).padLeft(),
+                                        date.getFullYear()
+                                    ].join('/') + ' ' +
+                                    [
+                                        date.getHours().padLeft(),
+                                        date.getMinutes().padLeft(),
+                                        date.getSeconds().padLeft()
+                                    ].join(':');
+                                    return dformat;
+                                }
+                            },
+                            { field: 'Serie', title: 'Serie', width: 70 },
+                            { field: 'Folio', title: 'Folio', width: 70 },
+                            { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
+                            { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
+                            { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
+                            { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
+                            { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
+                        ]
                     ]
-                ]
-            });
-            // get the datagrid object
-            var g = $('#drpSelectStudents').combogrid('grid');
-            //assign the data to datagrid
-            g.datagrid('loadData', jsonData);
+                });
+                // get the datagrid object
+                var g = $('#drpSelectStudents').combogrid('grid');
+                //assign the data to datagrid
+                g.datagrid('loadData', jsonData);
+            }
         });
 
 
