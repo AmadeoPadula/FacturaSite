@@ -183,7 +183,7 @@ namespace FacturaSite.Evidencias
             StringCollection sc = new StringCollection();
             String id = string.Empty;
 
-            for (int i = 0; i < EvidenciasSinClasificarGridView.Rows.Count - 1; i++)
+            for (int i = 0; i < EvidenciasSinClasificarGridView.Rows.Count; i++)
             {
                 CheckBox cs = (CheckBox) EvidenciasSinClasificarGridView.Rows[i].Cells[2].FindControl("chkEliminarCheckBox");
                 if (cs == null) continue;
@@ -205,8 +205,9 @@ namespace FacturaSite.Evidencias
 
         protected void BorrarEntradaBitacoraCarga(string bitacoraCargaId)
         {
+            Int32 usuarioCambioId = 1;
             BitacoraCargasBusiness bitacoraCargasBusiness = new BitacoraCargasBusiness();
-            bitacoraCargasBusiness.Eiminar(Convert.ToInt32(bitacoraCargaId));
+            bitacoraCargasBusiness.Eliminar(Convert.ToInt32(bitacoraCargaId), usuarioCambioId);
         } // protected void BorrarComprobranteSinClasificar(string bitacoraCargaId)
 
 

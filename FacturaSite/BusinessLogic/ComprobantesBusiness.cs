@@ -267,5 +267,41 @@ namespace FacturaSite.BusinessLogic
             } //finally
         }
 
+        /// <summary>
+        /// ComprobantesPagados()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Enero 19 de 2015 </para>
+        /// <para> Fecha de última modificación: Enero 19 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public List<Comprobantes> ComprobantesConEvidencia()
+        {
+            //Instacia la clase de acceso a datos
+            AdsertiSqlDataAccess adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+
+            try
+            {
+                //Abre la conexion
+                adsertiDataAccess.AbrirConexion();
+                adsertiDataAccess.AbrirTransaccion();
+
+                ComprobantesClass comprobantesDataAccess = new ComprobantesClass();
+
+                return comprobantesDataAccess.ComprobantesConEvidencia(adsertiDataAccess);
+
+            }
+            catch (Exception ex)
+            {
+                adsertiDataAccess.CancelarTransaccion();
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        }
+
+
     }
 }

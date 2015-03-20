@@ -132,7 +132,7 @@ namespace FacturaSite.DataAccess
                 listaParametros = new SqlParameter[]
                 {
                     new SqlParameter("@NombreArchivo", nombreArchivo),
-                    new SqlParameter("@Extension", (extensionArchivo == BitacoraCargas.ExtensionArchivo.Pdf) ? ".pdf" : ".xls")
+                    new SqlParameter("@Extension", (extensionArchivo == BitacoraCargas.ExtensionArchivo.Pdf) ? ".pdf" : ".xml")
                 };
 
                 var bitacoraCargaIdDevuelto = adsertiDataAccess.EjecutarEscalar(CommandType.Text, sentenciaSql, listaParametros);

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.AccessControl;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Caching;
 using FacturaSite.BusinessLogic;
 using FacturaSite.DataAccess;
 using FacturaSite.Models;
@@ -19,13 +22,14 @@ namespace FacturaSite.Handler
     {
         public void ProcessRequest(HttpContext context)
         {
-            List<Archivos> resultados = new List<Archivos>();
-            string path = context.Server.MapPath("~/Upload");
-            string fileExtension = "";
-            bool existe = false;
-            Int32 usuarioAltaId = 1;
-            string fileName = string.Empty;
-            string fullName = string.Empty;
+            Archivos resultado = null;
+
+            var path = context.Server.MapPath("~/Upload");
+            var fileExtension = "";
+            var usuarioAltaId = 1;
+            var fileName = string.Empty;
+            var fullName = string.Empty;
+            var onlyName = string.Empty;
 
             try
             {
@@ -34,14 +38,14 @@ namespace FacturaSite.Handler
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
 
-                    HttpFileCollection files = context.Request.Files;
+                    var files = context.Request.Files;
                     foreach (string key in files)
                     {
-                        HttpPostedFile file = files[key];
+                        var file = files[key];
 
                         if (HttpContext.Current.Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
                         {
-                            string[] fileParts = file.FileName.Split(new char[] {'\\'});
+                            var fileParts = file.FileName.Split(new char[] {'\\'});
                             fileName = fileParts[fileParts.Length - 1];
                         }
                         else
@@ -51,34 +55,62 @@ namespace FacturaSite.Handler
 
                         fileExtension = Path.GetExtension(fileName);
                         fullName = Path.Combine(path, fileName);
+                        onlyName = Path.GetFileNameWithoutExtension(fullName);
 
-                        if (!File.Exists(fullName))
+                        var extensionEnum = BitacoraCargas.ExtensionArchivo.Invalida;
+
+                        switch (fileExtension)
+                        {
+                            case ".pdf":
+                                extensionEnum = BitacoraCargas.ExtensionArchivo.Pdf;
+                                break;
+                            case ".xml":
+                                extensionEnum = BitacoraCargas.ExtensionArchivo.Xml;
+                                break;
+                        }
+
+
+                        if (extensionEnum == BitacoraCargas.ExtensionArchivo.Invalida)
+                        {
+                            resultado = new Archivos()
+                            {
+                                NombreArchivo = fileName,
+                                Correcto = false,
+                                Mensaje = "Archivo con Extensión Inválida.",
+                                Fecha = DateTime.Now
+                            };
+
+                            return;
+                        }
+
+                        //if (!File.Exists(fullName))
+                        if(!BitacoraCargasBusiness.Existe(onlyName,extensionEnum))
                         {
                             //Guardar el archivo en el servidor
                             file.SaveAs(fullName);
 
-                            BitacoraCargasBusiness bitacoraCargasBusiness = new BitacoraCargasBusiness();
-                            BitacoraCargas bitacoraCargas = new BitacoraCargas()
+                            var bitacoraCargasBusiness = new BitacoraCargasBusiness();
+                            var bitacoraCargas = new BitacoraCargas()
                             {
                                 NombreArchivo = Path.GetFileNameWithoutExtension(fullName),
                                 Extension = Path.GetExtension(fullName),
                                 UsuarioAltaId = usuarioAltaId
                             };
 
-                            Int32 bitacoraId = bitacoraCargasBusiness.Agregar(bitacoraCargas);
+                            var bitacoraId = bitacoraCargasBusiness.Agregar(bitacoraCargas);
 
                             //Si es un documento PDF
-                            if (fileExtension == ".pdf")
+                            if (extensionEnum == BitacoraCargas.ExtensionArchivo.Pdf)
                             {
-                                ComprobantesBusiness comprobantesBusiness = new ComprobantesBusiness();
+                                var comprobantesBusiness = new ComprobantesBusiness();
                                 comprobantesBusiness.VincularBitacora(bitacoraId, usuarioAltaId);
                             }
 
                             //Si es XML procesa como factura
-                            if (fileExtension == ".xml")
+                            if (extensionEnum == BitacoraCargas.ExtensionArchivo.Xml)
                             {
-                                ComprobantesBusiness comprobantesBusiness = new ComprobantesBusiness();
-                                bool existeComprobante = comprobantesBusiness.ExisteComprobante(fullName);
+                                var comprobantesBusiness = new ComprobantesBusiness();
+                                var existeComprobante = comprobantesBusiness.ExisteComprobante(fullName);
 
                                 if (!existeComprobante)
                                 {
@@ -86,68 +118,65 @@ namespace FacturaSite.Handler
                                     Utilidades.ParseXmlToFactura(fullName, bitacoraId);
 
                                     //Comprobar si existen PDFs que no esten vinculados a otras facturas y si no, ligarlos a la actual.
-                                    BitacoraCargas bitacoraPDFMismoNombre = bitacoraCargasBusiness.PDFSinFactura(bitacoraCargas.NombreArchivo);
+                                    var bitacoraPDFMismoNombre = bitacoraCargasBusiness.PDFSinFactura(bitacoraCargas.NombreArchivo);
                                     if (bitacoraPDFMismoNombre != null)
                                         comprobantesBusiness.VincularBitacora(bitacoraPDFMismoNombre.BitacoraCargaId, usuarioAltaId);
 
-                                    resultados.Add(new Archivos()
+                                    resultado = new Archivos()
                                     {
                                         NombreArchivo = fileName,
                                         Correcto = true,
-                                        Mensaje = "Documento guardado correctamente.",
+                                        Mensaje = "Archivo guardado correctamente.",
                                         Fecha = DateTime.Now
-                                    });
+                                    };
                                 }
                                 else
                                 {
+                                    //Marcar como inactivo la entrada en la bitacora
+                                    bitacoraCargasBusiness.Eliminar(bitacoraId, usuarioAltaId);
                                     //TODO: Borrar archivo ya que no fue utilizado
-                                    resultados.Add(new Archivos()
+                                    resultado = new Archivos()
                                     {
                                         NombreArchivo = fileName,
                                         Correcto = false,
-                                        Mensaje = "El documento ya fue previamente cargado.",
+                                        Mensaje = "Comprobante cargado previamente pero con nombre de archivo distinto.",
                                         Fecha = DateTime.Now
-                                    });
+                                    };
                                 }
                             }
                             else
                             {
-                                resultados.Add(new Archivos()
+                                resultado = new Archivos()
                                 {
                                     NombreArchivo = fileName,
                                     Correcto = true,
-                                    Mensaje = "Documento guardado correctamente.",
+                                    Mensaje = "Archivo guardado correctamente.",
                                     Fecha = DateTime.Now
-                                });
+                                };
                             }
                         }
                         else
                         {
-                            resultados.Add(new Archivos()
+                            resultado = new Archivos()
                             {
                                 NombreArchivo = fileName,
                                 Correcto = false,
-                                Mensaje = "El documento ya fue previamente cargado.",
+                                Mensaje = "Archivo previamente cargado.",
                                 Fecha = DateTime.Now
-                            });
+                            };
                         }
                     }
-
-                    //string defaultJson = JsonConvert.SerializeObject(resultados);
-
-                    //context.Response.ContentType = "application/json";
-                    //context.Response.Write(defaultJson);
                 }
             }
             catch (Exception ex)
             {
-                resultados.Add(new Archivos()
+                resultado = new Archivos()
                 {
                     NombreArchivo = fileName,
                     Correcto = false,
                     Mensaje = ex.Message,
                     Fecha = DateTime.Now
-                });
+                };
 
                 //TODO: Validar que este  funcionamiento sea el correcto, que pasa cuando solamente se guarda en bitacora y no se almacena como factura? Eliminar
                 //segun pasos alcanzados: 1 = Guardar Bitacora, 2 = Guardar Comprobantes , Vinculación etc...
@@ -158,10 +187,23 @@ namespace FacturaSite.Handler
             }
             finally
             {
-                var defaultJson = JsonConvert.SerializeObject(resultados);
+                if (resultado != null)
+                {
 
-                context.Response.ContentType = "application/json";
-                context.Response.Write(defaultJson);
+                    var defaultJson = JsonConvert.SerializeObject(resultado);
+                    if (resultado.Correcto == false)
+                    {
+                        context.Response.StatusCode = 501;
+                        context.Response.StatusDescription = resultado.Mensaje;
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = (int) HttpStatusCode.OK;
+                    }
+
+                    context.Response.ContentType = "application/json";
+                    context.Response.Write(defaultJson);
+                }
             }
 
         }

@@ -64,42 +64,61 @@
                 });
                 this.on("addedfile", function (file) {
 
-                    // Create the remove button
-                    var removeButton = Dropzone.createElement("<button type='button' class='btn btn-default btn-sm btn-drop-zone'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Eliminar Archivos</button>");
+                    // Creacion del boton Eliminar
+                    var removeButton = Dropzone.createElement("<button type='button' class='btn btn-default btn-sm btn-drop-zone'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Eliminar Archivo</button>");
 
-                    // Capture the Dropzone instance as closure.
+
+                    //Captura la Instancia DropZone como Closure
                     var _this = this;
 
-                    // Listen to the click event
+                    //Bind al evento Click
                     removeButton.addEventListener("click", function (e) {
-                        // Make sure the button click doesn't submit the form:
+                        //Evitar que el boton haga submit
                         e.preventDefault();
                         e.stopPropagation();
                         // Remove the file preview.
+                        //Quitar el preeeliminar del archivo
                         _this.removeFile(file);
-                        // If you want to the delete the file on the server as well,
-                        // you can do the AJAX request here.
+
+                        //Si fuera requerido eliminar el archivo del servidor, tendria que hacerse aqui usando una petición AJAX
                     });
 
                     // Add the button to the file preview element.
                     file.previewElement.appendChild(removeButton);
                 });
             },
-            success: function (result) {
-                // $("#uploadResults").empty();
-                var resultados = JSON.parse(result.xhr.response);
+            success: function (file, result) {
+                var resultados = JSON.parse(file.xhr.response);
+                AgregarItemBitacoraError(resultados);
 
-                $(resultados).each(function (i) {
-                    var fecha = new Date(resultados[i].Fecha);
-
-                    var icono = (resultados[i].Correcto) ? 'glyphicon glyphicon-ok verde' : 'glyphicon glyphicon-remove rojo';
-                    $("#uploadResults").append($("<li class='" + icono + "' aria-hidden='false'/>").text(" " + "[" + formatDate(fecha) + "] " + resultados[i].NombreArchivo + ' ' + resultados[i].Mensaje));
-                });
-
-                //Recargar Grid Facturas
-                //CargarComprobantes(1);
+                //Marcar como correcto
+                return file.previewElement.classList.add("dz-success");
             },
+            error: function (file, result) {
+                var resultados = JSON.parse(file.xhr.response);
+
+                AgregarItemBitacoraError(resultados);
+
+                //Marcar como archivo con error
+                var node, _i, _len, _ref, _results;
+                var message = resultados.Mensaje; // modify it to your error message
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            }
         };
+
+        function AgregarItemBitacoraError(item) {
+            var fecha = new Date(item.Fecha);
+            var icono = '<i class=\'' + ((item.Correcto) ? 'glyphicon glyphicon-ok verde' : 'glyphicon glyphicon-remove rojo') + '\'></i>';
+            var mensaje = ' ' + '[' + formatDate(fecha) + '] ' + '<b>' + item.NombreArchivo + '</b> ' + item.Mensaje;
+            $("#uploadResults").append("<li>" + icono + mensaje + '</li>');
+        }
 
 
         function formatDate(date) {

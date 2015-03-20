@@ -124,7 +124,6 @@ namespace FacturaSite.BusinessLogic
             } //finally
         }
 
-
         /// <summary>
         /// Cargar()
         /// <para> Adserti </para>
@@ -163,7 +162,7 @@ namespace FacturaSite.BusinessLogic
         /// <para> Fecha de última modificación: Marzo 18 de 2015 </para>
         /// <para> Personas de última modificación: Arturo Hernandez</para>
         /// </summary>
-        public void Eiminar(Int32 bitacoraId)
+        public void Eliminar(Int32 bitacoraId, Int32 usuarioCambioId)
         {
             AdsertiSqlDataAccess adsertiDataAccess;
             // Instancía la clase de acceso a datos
@@ -177,7 +176,8 @@ namespace FacturaSite.BusinessLogic
 
                 //Validar si existe el elemento
                 if (bitacoraCarga != null)
-                    bitacoraCargaDataAccess.Eliminar(bitacoraCarga, adsertiDataAccess);
+                    bitacoraCarga.UsuarioCambioId = usuarioCambioId;
+                bitacoraCargaDataAccess.Eliminar(bitacoraCarga, adsertiDataAccess);
             }
             catch (Exception ex)
             {
@@ -187,8 +187,39 @@ namespace FacturaSite.BusinessLogic
             {
                 adsertiDataAccess.CerrarConexion();
             } //finally
-        } // public void Eiminar(Int32 bitacoraId)
+        } // public void Eliminar(Int32 bitacoraId)
 
+        /// <summary>
+        /// Existe()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Marzo 20 de 2015 </para>
+        /// <para> Fecha de última modificación: Marzo 20 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public static Boolean Existe(string nombreArchivo, BitacoraCargas.ExtensionArchivo extensionArchivo)
+        {
+            AdsertiSqlDataAccess adsertiDataAccess;
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+            try
+            {
+                adsertiDataAccess.AbrirConexion();
+
+                BitacoraCargasClass bitacoraCargaDataAccess = new BitacoraCargasClass();
+                var bitacoraCarga = bitacoraCargaDataAccess.Cargar(nombreArchivo, extensionArchivo, adsertiDataAccess);
+
+                return (bitacoraCarga != null);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        } // public void Existe(string nombreArchivo, BitacoraCargas.ExtensionArchivo extensionArchivo)
 
         #endregion
 

@@ -9,6 +9,7 @@ namespace FacturaSite.Models
     {
         public enum ExtensionArchivo
         {
+            Invalida = 0,
             Pdf = 1,
             Xml
         }

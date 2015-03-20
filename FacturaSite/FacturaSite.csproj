@@ -441,9 +441,12 @@
     <Content Include="Content\themes\redmond\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Content\themes\redmond\images\ui-icons_f9bd01_256x240.png" />
     <Content Include="Content\themes\redmond\jquery-ui-1.9.2.custom.css" />
+    <Content Include="Documentos\CargaRepositorio.aspx" />
     <Content Include="DropZoneTest.aspx" />
     <Content Include="Evidencias\EvidenciasSinClasificar.aspx" />
     <Content Include="Evidencias\Test.aspx" />
+    <Content Include="Facturas\FacturasPagadas.aspx" />
+    <Content Include="Facturas\FacturasPendientes.aspx" />
     <Content Include="FileUploadHtml5.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -545,6 +548,13 @@
     <Compile Include="DataAccess\RegimenesFiscalesClass.cs" />
     <Compile Include="DataAccess\TimbresFiscalesDigitalesClass.cs" />
     <Compile Include="DataAccess\TiposTransaccionesClass.cs" />
+    <Compile Include="Documentos\CargaRepositorio.aspx.cs">
+      <DependentUpon>CargaRepositorio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\CargaRepositorio.aspx.designer.cs">
+      <DependentUpon>CargaRepositorio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DropZoneTest.aspx.cs">
       <DependentUpon>DropZoneTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -572,6 +582,20 @@
     </Compile>
     <Compile Include="FacturaSite.Master.designer.cs">
       <DependentUpon>FacturaSite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Facturas\FacturasPagadas.aspx.cs">
+      <DependentUpon>FacturasPagadas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facturas\FacturasPagadas.aspx.designer.cs">
+      <DependentUpon>FacturasPagadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facturas\FacturasPendientes.aspx.cs">
+      <DependentUpon>FacturasPendientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facturas\FacturasPendientes.aspx.designer.cs">
+      <DependentUpon>FacturasPendientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="FileUploadHtml5.aspx.cs">
       <DependentUpon>FileUploadHtml5.aspx</DependentUpon>
@@ -614,7 +638,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Facturas\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <PropertyGroup>
