@@ -38,11 +38,16 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Facturas <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Factura Pendientes Pago</a></li>
-                                <li><a href="#">Facturas Pagadas</a></li>
+                                <li><a href="/Facturas/FacturasPagadas.aspx">Facturas Pagadas</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Evidencias <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/Evidencias/EvidenciasSinClasificar.aspx">Evidencias Sin Clasificar</a></li>
+                            </ul>
+                        </li>
+                        <%--<li><a href="#">Link</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -54,7 +59,7 @@
                                 <li><a href="#">Separated link</a></li>
                                 <li><a href="#">One more separated link</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="./">Default</a></li>

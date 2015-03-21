@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net.Cache;
 using System.Text;
+using System.Web.Configuration;
 using AdsertiVS2013ClassLibrary;
 using FacturaSite.Models;
 
@@ -1047,6 +1048,11 @@ namespace FacturaSite.DataAccess
                     comprobante.Fecha = Convert.ToDateTime(comprobanteDataRow["Fecha"]);
                     comprobante.Total = Convert.ToDecimal(comprobanteDataRow["Total"]);
 
+                    comprobante.Evidencia = new Models.Evidencias()
+                    {
+                        EvidenciaId = Convert.ToInt32(comprobanteDataRow["EvidenciaId"])
+                    };
+
                     comprobantesList.Add(comprobante);
                 }
 
@@ -1056,7 +1062,7 @@ namespace FacturaSite.DataAccess
             {
                 throw ex;
             } //catch (Exception ex)
-        }
+        } // public List<Comprobantes> ComprobantesConEvidencia(AdsertiSqlDataAccess adsertiDataAccess)
 
         #endregion
     }

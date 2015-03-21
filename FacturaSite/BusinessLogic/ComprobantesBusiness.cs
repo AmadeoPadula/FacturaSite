@@ -287,9 +287,27 @@ namespace FacturaSite.BusinessLogic
                 adsertiDataAccess.AbrirTransaccion();
 
                 ComprobantesClass comprobantesDataAccess = new ComprobantesClass();
+                
+                List<Comprobantes> comprobantes = comprobantesDataAccess.ComprobantesConEvidencia(adsertiDataAccess);
+                EvidenciasBusiness evidenciasBusiness = new EvidenciasBusiness();
+                BitacoraCargasBusiness bitacoraCargasBusiness = new BitacoraCargasBusiness();
 
-                return comprobantesDataAccess.ComprobantesConEvidencia(adsertiDataAccess);
+                foreach (Comprobantes comprobante in comprobantes)
+                {
+                    
+                    comprobante.Evidencia = evidenciasBusiness.Cargar(comprobante.Evidencia.EvidenciaId);
+                    
+                    //Bitacora Comprobantes
+                    comprobante.Evidencia.BitacoraCarga = bitacoraCargasBusiness.Cargar(comprobante.Evidencia.BitacoraCarga.BitacoraCargaId);
 
+                    //Bitacora Comprobante PDF
+                    //comprobante.BitacoraCargasPdf.BitacoraCargaId = bitacoraCargasBusiness.Cargar(comprobante.Evidencia.BitacoraCarga.BitacoraCargaId);
+
+                    //Bitacora Comprobante XML
+
+                }
+
+                return comprobantes;
             }
             catch (Exception ex)
             {
@@ -301,7 +319,6 @@ namespace FacturaSite.BusinessLogic
                 adsertiDataAccess.CerrarConexion();
             } //finally
         }
-
 
     }
 }

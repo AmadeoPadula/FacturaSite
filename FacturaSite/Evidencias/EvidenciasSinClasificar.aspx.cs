@@ -160,7 +160,11 @@ namespace FacturaSite.Evidencias
                 ComprobanteId = Convert.ToInt32(FacturaSeleccionadaHiddenField.Value)
             };
 
-            evidencia.BitacoraCargaId = Convert.ToInt32(BitacoraCargaIdHiddenField.Value);
+            evidencia.BitacoraCarga = new BitacoraCargas()
+            {
+                BitacoraCargaId = Convert.ToInt32(BitacoraCargaIdHiddenField.Value)
+            };
+
             evidencia.UsuarioAltaId = 1;
 
             EvidenciasBusiness evidenciasBusiness = new EvidenciasBusiness();

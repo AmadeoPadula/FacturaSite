@@ -11,8 +11,8 @@ namespace FacturaSite.Models
 
         public Comprobantes()
         {
-           this.Conceptos = new List<Conceptos>();
-           this.ComprobantesImpuestos = new List<ComprobanteImpuesto>();
+            this.Conceptos = new List<Conceptos>();
+            this.ComprobantesImpuestos = new List<ComprobanteImpuesto>();
         }
 
         public int ComprobanteId { get; set; }
@@ -65,5 +65,6 @@ namespace FacturaSite.Models
             get { return Serie.Trim() + Folio.Trim(); }
         }
 
+        public Evidencias Evidencia { get; set; }
     }
 }

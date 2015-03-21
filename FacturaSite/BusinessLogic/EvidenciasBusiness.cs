@@ -149,7 +149,6 @@ namespace FacturaSite.BusinessLogic
             } //finally
         } // public static List<Empresas> CargarEmpresas()
 
-
         public static List<TiposTransacciones> CargarTiposTransacciones()
         {
             AdsertiSqlDataAccess adsertiDataAccess;
@@ -169,6 +168,37 @@ namespace FacturaSite.BusinessLogic
                 adsertiDataAccess.CerrarConexion();
             } //finally
         } // public static List<TiposTransacciones> CargarTiposTransacciones()
+
+
+        /// <summary>
+        /// Cargar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez </para>
+        /// <para> Fecha de creación: Febrero 13 de 2015 </para>
+        /// <para> Fecha de última modificación: Febrero 13 de 2015 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        public Models.Evidencias Cargar(Int32 evidenciaId)
+        {
+            AdsertiSqlDataAccess adsertiDataAccess;
+            // Instancía la clase de acceso a datos
+            adsertiDataAccess = new AdsertiSqlDataAccess(CadenaDeConexion);
+            try
+            {
+                adsertiDataAccess.AbrirConexion();
+
+                EvidenciasClass evidenciasDataAccess = new EvidenciasClass();
+                return evidenciasDataAccess.Cargar(evidenciaId, adsertiDataAccess);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+            finally
+            {
+                adsertiDataAccess.CerrarConexion();
+            } //finally
+        } // public BitacoraCargas Cargar(Int32 bitacoraId)
 
         #endregion
 

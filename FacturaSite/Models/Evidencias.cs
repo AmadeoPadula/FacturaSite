@@ -16,7 +16,8 @@ namespace FacturaSite.Models
         public decimal MontoPago { get; set; }
         //public string NoFacturaPagada { get; set; }
         public string ClaveEvidencia { get; set; }
-        public int BitacoraCargaId { get; set; }
+        //public int BitacoraCargaId { get; set; }
+        public Boolean Activo { get; set; }
         public System.DateTime FechaAlta { get; set; }
         public int UsuarioAltaId { get; set; }
         public Nullable<System.DateTime> FechaCambio { get; set; }
@@ -27,6 +28,8 @@ namespace FacturaSite.Models
         public Empresas Empresa { get; set; }
         public TiposTransacciones TipoTransaccion { get; set; }
         public Bancos Banco { get; set; }
+
+        public BitacoraCargas BitacoraCarga { get; set; }
 
         public Comprobantes Comprobante { get; set; }
 

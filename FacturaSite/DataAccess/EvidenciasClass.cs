@@ -34,7 +34,6 @@ namespace FacturaSite.DataAccess
 
         #region * Métodos creados por Adserti *
 
-
         /// <summary>
         /// Agregar()
         /// <para> Adserti </para>
@@ -97,7 +96,7 @@ namespace FacturaSite.DataAccess
                     new SqlParameter("@MontoPago", evidencia.MontoPago),
                     new SqlParameter("@ComprobanteId", evidencia.Comprobante.ComprobanteId),
                     new SqlParameter("@ClaveEvidencia", evidencia.ClaveEvidencia),
-                    new SqlParameter("@BitacoraCargaId", evidencia.BitacoraCargaId),
+                    new SqlParameter("@BitacoraCargaId", evidencia.BitacoraCarga.BitacoraCargaId),
                     new SqlParameter("@UsuarioAltaId", evidencia.UsuarioAltaId)
                 };
 
@@ -111,6 +110,129 @@ namespace FacturaSite.DataAccess
                 throw ex;
             } //catch (Exception ex)
         }
+
+
+        /// <summary>   
+        /// Cargar()
+        /// <para> Adserti </para>
+        /// <para> Este método fue creado por Arturo Hernandez</para>
+        /// <para> Fecha de creación: Julio 12 de 2014 </para>
+        /// <para> Fecha de última modificación: Julio 12 de 2014 </para>
+        /// <para> Personas de última modificación: Arturo Hernandez</para>
+        /// </summary>
+        /// <param name = "comprobanteId" type = "String"></param>	    
+        /// <param name = "adsertiDataAccess" type = "AdsertiSqlDataAccess"></param>	    
+        /// <returns> Comprobantes </returns>
+        public Models.Evidencias Cargar(int evidenciaId, AdsertiSqlDataAccess adsertiDataAccess)
+        {
+            String sentenciaSql = String.Empty;
+            DataTable evidenciaseDataTable;
+            SqlParameter[] listaParametros;
+            Models.Evidencias evidencia = null;
+
+            // Valida que los parámetros enviados sean correctos
+            if (evidenciaId <= 0)
+                throw new ArgumentNullException("evidenciaId");
+
+            try
+            {
+
+                sentenciaSql += "SELECT ";
+                sentenciaSql += "	[Evidencias].[EvidenciaId], ";
+                sentenciaSql += "	[Evidencias].[EmpresaId], ";
+                sentenciaSql += "	[Evidencias].[BancoId], ";
+                sentenciaSql += "	[Evidencias].[TipoTransaccionId], ";
+                sentenciaSql += "	[Evidencias].[NumeroTransferencia], ";
+                sentenciaSql += "	[Evidencias].[FechaPago], ";
+                sentenciaSql += "	[Evidencias].[MontoPago], ";
+                sentenciaSql += "	[Evidencias].[ClaveEvidencia], ";
+                sentenciaSql += "	[Evidencias].[BitacoraCargaId], ";
+                sentenciaSql += "	[Evidencias].[ComprobanteId], ";
+                sentenciaSql += "	[Evidencias].[Activo], ";
+                sentenciaSql += "	[Evidencias].[FechaAlta], ";
+                sentenciaSql += "	[Evidencias].[UsuarioAltaId], ";
+                sentenciaSql += "	[Evidencias].[FechaCambio], ";
+                sentenciaSql += "	[Evidencias].[UsuarioCambioId] ";
+                sentenciaSql += "FROM ";
+                sentenciaSql += "	[dbo].[Evidencias] ";
+                sentenciaSql += "WHERE ";
+                sentenciaSql += "	[Evidencias].[EvidenciaId] = @EvidenciaId ";
+
+                //se configuran los parametros
+                listaParametros = new SqlParameter[]
+                {
+                    new SqlParameter("@EvidenciaId", evidenciaId)
+                };
+
+                evidenciaseDataTable = adsertiDataAccess.ObtenerDataTable(CommandType.Text, sentenciaSql, listaParametros);
+                if (evidenciaseDataTable.Rows.Count > 0)
+                {
+                    evidencia = new Models.Evidencias();
+
+                    evidencia.EvidenciaId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["EvidenciaId"]);
+
+                    evidencia.Banco = new Bancos()
+                    {
+                        BancoId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["EmpresaId"])
+                    };
+
+                    evidencia.Empresa = new Empresas()
+                    {
+                        EmpresaId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["BancoId"])
+                    };
+                    evidencia.TipoTransaccion = new TiposTransacciones()
+                    {
+                        TipoTransaccionId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["TipoTransaccionId"])
+                    };
+                    
+                    evidencia.NumeroTransferencia = (evidenciaseDataTable.Rows[0]["NumeroTransferencia"]).ToString();
+                    evidencia.FechaPago = Convert.ToDateTime(evidenciaseDataTable.Rows[0]["FechaPago"]);
+                    evidencia.MontoPago = Convert.ToDecimal(evidenciaseDataTable.Rows[0]["MontoPago"]);
+                    evidencia.ClaveEvidencia = (evidenciaseDataTable.Rows[0]["ClaveEvidencia"]).ToString();
+                    evidencia.BitacoraCarga = new BitacoraCargas()
+                    {
+                        BitacoraCargaId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["BitacoraCargaId"])
+                    };
+
+                    evidencia.Comprobante = new Comprobantes()
+                    {
+                        ComprobanteId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["ComprobanteId"])
+                    };
+                    
+                    evidencia.Activo = Convert.ToBoolean(evidenciaseDataTable.Rows[0]["Activo"]);
+                    evidencia.FechaAlta = Convert.ToDateTime(evidenciaseDataTable.Rows[0]["FechaAlta"]);
+                    evidencia.UsuarioAltaId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["UsuarioAltaId"]);
+
+                    if (evidenciaseDataTable.Rows[0]["FechaCambio"] == DBNull.Value)
+                    {
+                        evidencia.FechaCambio = null;
+                    }
+                    else
+                    {
+                        evidencia.FechaCambio = Convert.ToDateTime(evidenciaseDataTable.Rows[0]["FechaCambio"]);
+                    }
+
+                    if (evidenciaseDataTable.Rows[0]["UsuarioCambioId"] == DBNull.Value)
+                    {
+                        evidencia.UsuarioCambioId = null;
+                    }
+                    else
+                    {
+                        evidencia.UsuarioCambioId = Convert.ToInt32(evidenciaseDataTable.Rows[0]["UsuarioCambioId"]);
+                    }
+
+                } // if (evidenciaseDataTable.Rows.Count > 0)
+
+                return evidencia;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } //catch (Exception ex)
+        } // public Models.Evidencias Cargar(int evidenciaId, AdsertiSqlDataAccess adsertiDataAccess)
+
+
 
         #endregion
 
