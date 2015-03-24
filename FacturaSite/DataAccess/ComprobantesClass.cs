@@ -985,6 +985,8 @@ namespace FacturaSite.DataAccess
                 sentenciaSql.Append("	Comprobantes.Serie, ");
                 sentenciaSql.Append("	Comprobantes.Folio, ");
                 sentenciaSql.Append("	Comprobantes.Fecha, ");
+                sentenciaSql.Append("	Comprobantes.BitacoraCargaIdXML, ");
+                sentenciaSql.Append("	Comprobantes.BitacoraCargaIdPDF, ");
                 sentenciaSql.Append("	Comprobantes.EmisorId, ");
                 sentenciaSql.Append("	PersonasEmisores.PersonaId EmisorPersonaId, ");
                 sentenciaSql.Append("	PersonasEmisores.Rfc EmisorRFC, ");
@@ -1051,6 +1053,17 @@ namespace FacturaSite.DataAccess
                     comprobante.Evidencia = new Models.Evidencias()
                     {
                         EvidenciaId = Convert.ToInt32(comprobanteDataRow["EvidenciaId"])
+                    };
+
+
+                    comprobante.BitacoraCargasXml = new BitacoraCargas()
+                    {
+                        BitacoraCargaId = Convert.ToInt32(comprobanteDataRow["BitacoraCargaIdXML"])
+                    };
+
+                    comprobante.BitacoraCargasPdf = new BitacoraCargas()
+                    {
+                        BitacoraCargaId = Convert.ToInt32(comprobanteDataRow["BitacoraCargaIdPDF"])
                     };
 
                     comprobantesList.Add(comprobante);

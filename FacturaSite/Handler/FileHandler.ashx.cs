@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,8 +24,9 @@ namespace FacturaSite.Handler
         public void ProcessRequest(HttpContext context)
         {
             Archivos resultado = null;
-
             var path = context.Server.MapPath("~/Upload");
+            //var path = ConfigurationManager.AppSettings["Upload"];
+
             var fileExtension = "";
             var usuarioAltaId = 1;
             var fileName = string.Empty;

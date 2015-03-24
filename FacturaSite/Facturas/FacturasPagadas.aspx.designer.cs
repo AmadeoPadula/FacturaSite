@@ -31,13 +31,13 @@ namespace FacturaSite.Facturas {
         protected global::System.Web.UI.ScriptManager FacturasPagadasScriptManager;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// FacturasPagadasUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel FacturasPagadasUpdatePanel;
         
         /// <summary>
         /// FacturasPagadasGridView control.
@@ -47,5 +47,14 @@ namespace FacturaSite.Facturas {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView FacturasPagadasGridView;
+        
+        /// <summary>
+        /// msjLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label msjLabel;
     }
 }

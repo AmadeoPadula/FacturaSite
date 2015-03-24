@@ -292,19 +292,10 @@ namespace FacturaSite.BusinessLogic
                 EvidenciasBusiness evidenciasBusiness = new EvidenciasBusiness();
                 BitacoraCargasBusiness bitacoraCargasBusiness = new BitacoraCargasBusiness();
 
+                //Carga datos de la Evidencia Vinculada
                 foreach (Comprobantes comprobante in comprobantes)
                 {
-                    
                     comprobante.Evidencia = evidenciasBusiness.Cargar(comprobante.Evidencia.EvidenciaId);
-                    
-                    //Bitacora Comprobantes
-                    comprobante.Evidencia.BitacoraCarga = bitacoraCargasBusiness.Cargar(comprobante.Evidencia.BitacoraCarga.BitacoraCargaId);
-
-                    //Bitacora Comprobante PDF
-                    //comprobante.BitacoraCargasPdf.BitacoraCargaId = bitacoraCargasBusiness.Cargar(comprobante.Evidencia.BitacoraCarga.BitacoraCargaId);
-
-                    //Bitacora Comprobante XML
-
                 }
 
                 return comprobantes;
