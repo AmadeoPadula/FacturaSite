@@ -880,6 +880,8 @@ namespace FacturaSite.DataAccess
                 sentenciaSql.Append("	Comprobantes.Folio, ");
                 sentenciaSql.Append("	Comprobantes.Fecha, ");
                 sentenciaSql.Append("	Comprobantes.EmisorId, ");
+                sentenciaSql.Append("	Comprobantes.BitacoraCargaIdXML, ");
+                sentenciaSql.Append("	Comprobantes.BitacoraCargaIdPDF, ");
                 sentenciaSql.Append("	PersonasEmisores.PersonaId EmisorPersonaId, ");
                 sentenciaSql.Append("	PersonasEmisores.Rfc EmisorRFC, ");
                 sentenciaSql.Append("	PersonasEmisores.Nombre Emisor, ");
@@ -945,6 +947,26 @@ namespace FacturaSite.DataAccess
                         }
                     };
 
+                    //Bitacora carga XML
+                    comprobante.BitacoraCargasXml = new BitacoraCargas()
+                    {
+                        BitacoraCargaId = Convert.ToInt32(comprobanteDataRow["BitacoraCargaIdXML"])
+                    };
+
+                    //Bitacora carga PDF
+                    if (comprobanteDataRow["BitacoraCargaIdPDF"] == DBNull.Value)
+                    {
+                        comprobante.BitacoraCargasPdf = null;
+
+                    }
+                    else
+                    {
+                        comprobante.BitacoraCargasPdf = new BitacoraCargas()
+                        {
+                            BitacoraCargaId = Convert.ToInt32(comprobanteDataRow["BitacoraCargaIdPDF"])
+                        };
+                    }
+                    
                     comprobante.Serie = (comprobanteDataRow["Serie"]).ToString();
                     comprobante.Folio = (comprobanteDataRow["Folio"]).ToString();
                     comprobante.Fecha = Convert.ToDateTime(comprobanteDataRow["Fecha"]);

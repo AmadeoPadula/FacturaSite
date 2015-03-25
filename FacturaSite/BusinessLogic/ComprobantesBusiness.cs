@@ -291,11 +291,18 @@ namespace FacturaSite.BusinessLogic
                 List<Comprobantes> comprobantes = comprobantesDataAccess.ComprobantesConEvidencia(adsertiDataAccess);
                 EvidenciasBusiness evidenciasBusiness = new EvidenciasBusiness();
                 BitacoraCargasBusiness bitacoraCargasBusiness = new BitacoraCargasBusiness();
+                BancosClass bancosDataAccess = new BancosClass();
+                EmpresasClass empresasDataAccess = new EmpresasClass();
+                TiposTransaccionesClass tiposTransaccionesDataAccess = new TiposTransaccionesClass();
 
                 //Carga datos de la Evidencia Vinculada
                 foreach (Comprobantes comprobante in comprobantes)
                 {
                     comprobante.Evidencia = evidenciasBusiness.Cargar(comprobante.Evidencia.EvidenciaId);
+
+                    comprobante.Evidencia.Banco = bancosDataAccess.Cargar(comprobante.Evidencia.Banco.BancoId, adsertiDataAccess);
+                    comprobante.Evidencia.Empresa = empresasDataAccess.Cargar(comprobante.Evidencia.Empresa.EmpresaId, adsertiDataAccess);
+                    comprobante.Evidencia.TipoTransaccion = tiposTransaccionesDataAccess.Cargar(comprobante.Evidencia.TipoTransaccion.TipoTransaccionId, adsertiDataAccess);
                 }
 
                 return comprobantes;

@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FacturaSite.BusinessLogic;
-using FacturaSite.Documentos;
 using FacturaSite.Models;
 
 namespace FacturaSite.Facturas
 {
     public partial class FacturasPagadas : System.Web.UI.Page
     {
+
+        protected enum Orientacion
+        {
+            Columna = 1,
+            Fila
+        };
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (this.Page.IsPostBack) return;
@@ -79,7 +79,7 @@ namespace FacturaSite.Facturas
             }
             catch (Exception eClick)
             {
-                msjLabel.Text = eClick.Message;
+                //msjLabel.Text = eClick.Message;
             }
         }
 
@@ -105,28 +105,73 @@ namespace FacturaSite.Facturas
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                GridView objGridView = (GridView) sender;
-                GridViewRow objGridViewRow = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
+                var objGridView = (GridView)sender;
+                var headerRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
+                
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Fecha Factura", "HeaderStyle azul", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Fecha Pago", "HeaderStyle verde", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Folio y Serie", "HeaderStyle azul", HorizontalAlign.Center));
 
-                TableCell objTableCell = new TableCell();
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Columna, 2, "EMISOR", "HeaderStyle azul", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Columna, 2, "RECEPTOR", "HeaderStyle azul", HorizontalAlign.Center));
 
-                AddMergedCells(objGridViewRow, objTableCell, 1, "", System.Drawing.Color.LightGreen.Name);
-                AddMergedCells(objGridViewRow, objTableCell, 1, "", System.Drawing.Color.LightGreen.Name);
-                AddMergedCells(objGridViewRow, objTableCell, 1, "", System.Drawing.Color.LightGreen.Name);
-                AddMergedCells(objGridViewRow, objTableCell, 2, "Emisor", System.Drawing.Color.LightGreen.Name);
-                AddMergedCells(objGridViewRow, objTableCell, 2, "Receptor", System.Drawing.Color.SkyBlue.Name);
-                objGridView.Controls[0].Controls.AddAt(0, objGridViewRow);
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Banco", "HeaderStyle verde", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Tipo Transacción", "HeaderStyle verde", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Total Factura", "HeaderStyle azul", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Total Evidencia", "HeaderStyle verde", HorizontalAlign.Center));
+                headerRow.Cells.Add(AgregarCeldaEncabezado(Orientacion.Fila, 2, "Diferencia", "HeaderStyle", HorizontalAlign.Center));
+
+                objGridView.Controls[0].Controls.AddAt(0,headerRow);
             }
         }
 
-        protected void AddMergedCells(GridViewRow objgridviewrow, TableCell objtablecell, int colspan, string celltext, string backcolor)
+        protected TableCell AgregarCeldaEncabezado(Orientacion orientacion, int span, string texto, string cssClass, HorizontalAlign horizontalAlign)
         {
-            objtablecell = new TableCell();
-            objtablecell.Text = celltext;
-            objtablecell.ColumnSpan = colspan;
-            objtablecell.Style.Add("background-color",backcolor);
-            objtablecell.HorizontalAlign = HorizontalAlign.Center;
-            objgridviewrow.Cells.Add(objtablecell);
+            TableCell objTableCell = new TableCell();
+            objTableCell.Text = texto;
+            objTableCell.HorizontalAlign = horizontalAlign;
+
+            switch (orientacion)
+            {
+                case Orientacion.Fila:
+                    objTableCell.RowSpan = span;
+                    break;
+                case Orientacion.Columna:
+                    objTableCell.ColumnSpan = span;
+                    break;
+            }
+
+            objTableCell.CssClass = cssClass;
+
+            return objTableCell;
+        }
+
+        protected void FacturasPagadasGridView_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Visible = false; // Fecha Factura
+                e.Row.Cells[1].Visible = false; // Fecha Pago
+                e.Row.Cells[2].Visible = false; // Folio y Serie
+                e.Row.Cells[7].Visible = false; // Banco
+                e.Row.Cells[8].Visible = false; // Tipo Transacción
+                e.Row.Cells[9].Visible = false; // Total Factura
+                e.Row.Cells[10].Visible = false; // Total Evidencia
+                e.Row.Cells[11].Visible = false; // Diferencia
+
+                e.Row.Cells[12].Visible = false; // Descarga XML
+                e.Row.Cells[13].Visible = false; // Descarga PDF
+                e.Row.Cells[14].Visible = false; // Descarga Evidencia
+            }
+
+            //Calculo de diferencia entre Total Factura y Total Evidencia
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                decimal totalFactura = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Total").ToString());
+                decimal totalEvidencia = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "Evidencia.MontoPago").ToString());
+                Label lblDifencia = ((Label) e.Row.FindControl("DiferenciaLabel"));
+                lblDifencia.Text = string.Format("{0:c}", (totalFactura - totalEvidencia));
+            }
         }
     }
 }
