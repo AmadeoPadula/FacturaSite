@@ -47,6 +47,14 @@
                                 <li><a href="/Evidencias/EvidenciasSinClasificar.aspx">Evidencias Sin Clasificar</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resumen <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/Resumen/EvidenciaContable.aspx">Resumen Global</a></li>
+                            </ul>
+                        </li>
+                        
+
                         <%--<li><a href="#">Link</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -61,11 +69,11 @@
                             </ul>
                         </li>--%>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <%--<ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="./">Default</a></li>
                         <li><a href="../navbar-static-top/">Static top</a></li>
                         <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-                    </ul>
+                    </ul>--%>
                 </div>
                 <!--/.nav-collapse -->
             </div>
