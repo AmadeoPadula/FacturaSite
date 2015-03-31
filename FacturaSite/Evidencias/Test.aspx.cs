@@ -15,7 +15,7 @@ namespace FacturaSite.Evidencias
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            //Comentario Load  agregado desde casa
         }
 
         [WebMethod]
