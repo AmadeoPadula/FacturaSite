@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Titulo agregado desde casa</title>
     <link href="../Content/themes/bootstrap/easyui.css" rel="stylesheet" />
     <script src="../Scripts/jquery-2.1.3.js"></script>
     <script src="../Scripts/jquery.easyui.min-1.4.1.js"></script>
