@@ -41,6 +41,11 @@
         .gridContainer {
             overflow: auto;
         }
+
+        .error {
+            border: 1px solid #b94a48 !important;
+            background-color: #fee !important;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentSection" runat="server">
@@ -92,8 +97,8 @@
                         </div>
                     </div>
                 </div>
-                <%--INICIO MODAL--%>
 
+                <%--INICIO MODAL--%>
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -144,8 +149,7 @@
                                                 <asp:TextBox ID="MontoPagoTextBox" runat="server" SkinID="NumerosMoneda"></asp:TextBox>
                                             </div>
 
-
-
+                                            <%--FACTURA PAGADA--%>
                                             <asp:HiddenField runat="server" ID="BitacoraCargaIdHiddenField" />
                                             <asp:HiddenField runat="server" ID="FacturaSeleccionadaHiddenField" />
 
@@ -163,19 +167,20 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
                 <%--FIN MODAL--%>
+                
+
             </div>
         </div>
     </form>
 </asp:Content>
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptSection" runat="server">
+    <script src="../Scripts/jquery.easyui.min-1.4.1.js"></script>
+    <script src="../Scripts/jquery.validate.min.js"></script>
     <script src="../Scripts/autoNumeric/autoNumeric-1.9.25.min.js"></script>
     <script src="../Scripts/autoNumericCfg.min.js"></script>
-    <script src="../Scripts/jquery.easyui.min-1.4.1.js"></script>
+    <script src="../Scripts/datepickerCfg.min.js"></script>
     <script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(InIEvent);
         function InIEvent() {
@@ -248,7 +253,7 @@
                                 field: 'Fecha.Formateada',
                                 title: 'Fecha',
                                 width: 120,
-                                formatter: function(value, row) {
+                                formatter: function (value, row) {
                                     var date = new Date(parseInt(row.Fecha.substr(6)));
 
                                     var dformat = [
@@ -266,14 +271,14 @@
                             },
                             { field: 'Serie', title: 'Serie', width: 70 },
                             { field: 'Folio', title: 'Folio', width: 70 },
-                            { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function(value, row) { return row.Emisores.Personas.Rfc; } },
-                            { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function(value, row) { return row.Emisores.Personas.Nombre; } },
-                            { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function(value, row) { return row.Receptores.Personas.Rfc; } },
-                            { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function(value, row) { return row.Receptores.Personas.Nombre; } },
-                            { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function(value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
+                            { field: 'Emisor.Rfc', title: 'Emisor RFC', width: 100, formatter: function (value, row) { return row.Emisores.Personas.Rfc; } },
+                            { field: 'Emisor.Nombre', title: 'Emisor', width: 300, formatter: function (value, row) { return row.Emisores.Personas.Nombre; } },
+                            { field: 'Receptor.Rfc', title: 'Receptor RFC', width: 100, formatter: function (value, row) { return row.Receptores.Personas.Rfc; } },
+                            { field: 'Receptor.Nombre', title: 'Receptor', width: 300, formatter: function (value, row) { return row.Receptores.Personas.Nombre; } },
+                            { field: 'Total.Formateado', title: 'Total', width: 90, formatter: function (value, row) { return '$' + row.Total.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); }, sortable: true }
                         ]
                     ],
-                    onSelect: function(index, row) {
+                    onSelect: function (index, row) {
                         var comprobante = row.ComprobanteId;
                         $('#' + '<%= FacturaSeleccionadaHiddenField.ClientID%>').val(comprobante);
 
@@ -296,24 +301,11 @@
             return len > 0 ? new Array(len).join(chr || '0') + this : this;
         }
 
+        // Validación cuadro de dialogo
+        //$('#btnSave').click(function() {
+            
+        //});
 
-        $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '',
-            nextText: '',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
 
     </script>
 </asp:Content>
