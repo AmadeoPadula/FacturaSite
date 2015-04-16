@@ -306,6 +306,24 @@
             
         //});
 
+        $('#myModal').validate({
+            rules: {
+                <%=FechaPagoTextBox.UniqueID %>: {
+                    required: true
+                },
+            },
+            messages: {
+                <%=FechaPagoTextBox.UniqueID %>:
+                {
+                    required: "La fecha de inicio es obligatoria"
+                }
+            }
+        });
+        
+        //$("input[id$='btnSave']").on('click', function() {
+        //    $("#myModal").valid();
+        //});
+
 
     </script>
 </asp:Content>
