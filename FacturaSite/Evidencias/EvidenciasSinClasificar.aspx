@@ -187,6 +187,11 @@
             ConfiguraAutoNumeric();
             ActualizaFacturasPendientes();
             $.datepicker.setDefaults($.datepicker.regional['es']);
+
+            //Cancelar la validacion por default del formulario
+            $("#form1").validate({
+                onsubmit: false
+            });
         }
 
         $(document).ready(InIEvent);
@@ -306,23 +311,71 @@
             
         //});
 
-        $('#myModal').validate({
+        $('#' + '<%= form1.ClientID%>').validate({
+            ignore:'',
             rules: {
+                <%=EmpresaDropDownList.UniqueID%>: {
+                    required: true
+                },
+                <%=BancoDropDownList.UniqueID%>: {
+                    required: true
+                },
+                <%=TipoTransaccionDropDownList.UniqueID%>: {
+                    required: true
+                },
+                <%=NumeroTransferenciaTextBox.UniqueID%>: {
+                    required: true
+                },
                 <%=FechaPagoTextBox.UniqueID %>: {
                     required: true
                 },
+                <%=FacturaPagadaDropDownList.UniqueID %>: {
+                    required: true
+                },
+                <%=MontoPagoTextBox.UniqueID %>: {
+                    required: true
+                }
             },
-            messages: {
-                <%=FechaPagoTextBox.UniqueID %>:
+            errorPlacement: function(error, element) {
+                if (element.hasClass('combo-value')) 
                 {
-                    required: "La fecha de inicio es obligatoria"
+                    element.closest("span.combo").after(error);
+                } 
+                else {
+                    element.after(error);
+                }
+            },       
+            messages: {
+                <%=EmpresaDropDownList.UniqueID%>: {
+                    required: "La Empresa es obligatoria"
+                },
+                <%=BancoDropDownList.UniqueID%>: {
+                    required: "El Banco es obligatorio"
+                },
+                <%=TipoTransaccionDropDownList.UniqueID%>: {
+                    required: "El Tipo de Transacción es obligatorio"
+                },
+                <%=NumeroTransferenciaTextBox.UniqueID%>: {
+                    required: "El Número de Transaferencia obligatorio"
+                },
+                <%=FechaPagoTextBox.UniqueID %>: {
+                    required: "La Fecha de Pago es obligatoria"
+                },
+                <%=FacturaPagadaDropDownList.UniqueID %>: {
+                    required: "El Número de Factura Pagada es obligatoria"
+                },
+                <%=MontoPagoTextBox.UniqueID %>: {
+                    required: "El Monto Pagado es obligatorio"
                 }
             }
         });
-        
-        //$("input[id$='btnSave']").on('click', function() {
-        //    $("#myModal").valid();
-        //});
+
+        $("input[id$=btnSave]").click(function(evt) {
+            var isValid = $('#' + '<%= form1.ClientID%>').valid();
+
+            if (!isValid)
+                evt.preventDefault();
+        });
 
 
     </script>
